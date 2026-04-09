@@ -1,0 +1,324 @@
+/* =============================================================
+   DESIGN TOKENS — Bibliothèques de Bordeaux
+   Généré depuis tokens.js — NE PAS MODIFIER MANUELLEMENT
+   2 couches : :root primitives + sémantiques
+   ============================================================= */
+
+/* ─────────────────────────────────────────────────────────────
+   LAYER 1 — PRIMITIVES (mode PFE)
+   ───────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    /* Brand (teal) */
+    --color-brand-1:  #fafefd;
+    --color-brand-2:  #f4fbfb;
+    --color-brand-3:  #e1f7f6;
+    --color-brand-4:  #cff1f0;
+    --color-brand-5:  #bbe8e7;
+    --color-brand-6:  #a6dcda;
+    --color-brand-7:  #8bcbc9;
+    --color-brand-8:  #63b5b4;
+    --color-brand-9:  #357e7d;
+    --color-brand-10: #25706f;
+    --color-brand-11: #297473;
+    --color-brand-12: #204140;
+
+    /* Secondary (bordeaux) */
+    --color-secondary-1:  #fffafc;
+    --color-secondary-2:  #fef6f9;
+    --color-secondary-3:  #f8e2ea;
+    --color-secondary-4:  #f4d2de;
+    --color-secondary-5:  #f0c2d3;
+    --color-secondary-6:  #e3abbf;
+    --color-secondary-7:  #d98ca8;
+    --color-secondary-8:  #cc668b;
+    --color-secondary-9:  #993358;
+    --color-secondary-10: #7d193e;
+    --color-secondary-11: #4d0f26;
+    --color-secondary-12: #2b0815;
+
+    /* Grey */
+    --color-grey-0:  #ffffff;
+    --color-grey-1:  #fcfcfd;
+    --color-grey-2:  #f9f9fa;
+    --color-grey-3:  #f1f0f1;
+    --color-grey-4:  #e9e8ea;
+    --color-grey-5:  #e1e0e3;
+    --color-grey-6:  #dad9db;
+    --color-grey-7:  #cfcdd0;
+    --color-grey-8:  #bbbabd;
+    --color-grey-9:  #8e8d8f;
+    --color-grey-10: #828183;
+    --color-grey-11: #656366;
+    --color-grey-12: #222123;
+
+    /* Green */
+    --color-green-1:  #fcfdfa;
+    --color-green-2:  #f5fbf5;
+    --color-green-3:  #e9f6e9;
+    --color-green-4:  #daf1db;
+    --color-green-5:  #c9e8ca;
+    --color-green-6:  #b2ddb5;
+    --color-green-7:  #94ce9a;
+    --color-green-8:  #65ba74;
+    --color-green-9:  #46a758;
+    --color-green-10: #3e9b4f;
+    --color-green-11: #2a7e3b;
+    --color-green-12: #203c25;
+
+    /* Red */
+    --color-red-1:  #fffcfc;
+    --color-red-2:  #fff8f7;
+    --color-red-3:  #fdeceb;
+    --color-red-4:  #ffddda;
+    --color-red-5:  #ffcfcc;
+    --color-red-6:  #f9bfbc;
+    --color-red-7:  #f0aca8;
+    --color-red-8:  #e6928e;
+    --color-red-9:  #de5254;
+    --color-red-10: #d04348;
+    --color-red-11: #c53b40;
+    --color-red-12: #611d1e;
+
+    /* Blue */
+    --color-blue-1:  #fbfdff;
+    --color-blue-2:  #f5f9ff;
+    --color-blue-3:  #eaf3fe;
+    --color-blue-4:  #dcecff;
+    --color-blue-5:  #cce2ff;
+    --color-blue-6:  #b8d5fa;
+    --color-blue-7:  #9fc3f2;
+    --color-blue-8:  #7baceb;
+    --color-blue-9:  #3e8dee;
+    --color-blue-10: #3681dc;
+    --color-blue-11: #2272cf;
+    --color-blue-12: #13345c;
+
+    /* Orange */
+    --color-orange-1:  #fefcfb;
+    --color-orange-2:  #fff5ed;
+    --color-orange-3:  #ffead7;
+    --color-orange-4:  #ffd8b7;
+    --color-orange-5:  #ffcba0;
+    --color-orange-6:  #ffbb85;
+    --color-orange-7:  #ffa86c;
+    --color-orange-8:  #f48f44;
+    --color-orange-9:  #ee8a3e;
+    --color-orange-10: #e27f31;
+    --color-orange-11: #c06000;
+    --color-orange-12: #592e0a;
+
+    /* Alpha shadows grey */
+    --alpha-grey-01: rgba(142,141,143,0.01);
+    --alpha-grey-04: rgba(142,141,143,0.04);
+    --alpha-grey-05: rgba(142,141,143,0.05);
+    --alpha-grey-07: rgba(142,141,143,0.07);
+    --alpha-grey-09: rgba(142,141,143,0.09);
+    --alpha-grey-10: rgba(142,141,143,0.1);
+    --alpha-grey-20: rgba(142,141,143,0.2);
+    --alpha-grey-35: rgba(142,141,143,0.35);
+
+    /* Alpha shadows primary (teal) */
+    --alpha-primary-08:  rgba(99,181,180,0.08);
+    --alpha-primary-25:  rgba(99,181,180,0.25);
+    --alpha-primary-35:  rgba(99,181,180,0.35);
+
+    /* Typography */
+    --font-body:  'Plus Jakarta Sans', sans-serif;
+    --font-brand: 'Lora', serif;
+
+    /* ─────────────────────────────────────────────────────────
+       LAYER 2 — SÉMANTIQUES (mode touch)
+       ───────────────────────────────────────────────────────── */
+
+    /* — Usage text — */
+    --color-white:            var(--color-grey-0);
+    --color-text-brand:       var(--color-brand-12);
+    --color-text-title:       var(--color-grey-12);
+    --color-text-body:        var(--color-grey-11);
+    --color-text-subtle:      var(--color-grey-10);
+    --color-text-placeholder: var(--color-grey-8);
+    --color-icon-action:      var(--color-grey-11);
+    --color-icon-info:        var(--color-grey-8);
+
+    /* — Primary teal — */
+    --primary-1:  var(--color-brand-1);
+    --primary-2:  var(--color-brand-2);
+    --primary-3:  var(--color-brand-3);
+    --primary-4:  var(--color-brand-4);
+    --primary-5:  var(--color-brand-5);
+    --primary-6:  var(--color-brand-6);
+    --primary-7:  var(--color-brand-7);
+    --primary-8:  var(--color-brand-8);
+    --primary-9:  var(--color-brand-9);
+    --primary-10: var(--color-brand-10);
+    --primary-11: var(--color-brand-11);
+    --primary-12: var(--color-brand-12);
+
+    /* — Secondary bordeaux — */
+    --secondary-1:  var(--color-secondary-1);
+    --secondary-2:  var(--color-secondary-2);
+    --secondary-3:  var(--color-secondary-3);
+    --secondary-4:  var(--color-secondary-4);
+    --secondary-5:  var(--color-secondary-5);
+    --secondary-6:  var(--color-secondary-7);
+    --secondary-7:  var(--color-secondary-7);
+    --secondary-8:  var(--color-secondary-8);
+    --secondary-9:  var(--color-secondary-9);
+    --secondary-10: var(--color-secondary-10);
+    --secondary-11: var(--color-secondary-11);
+    --secondary-12: var(--color-secondary-12);
+
+    /* — Neutral grey — */
+    --neutral-1:  var(--color-grey-1);
+    --neutral-2:  var(--color-grey-2);
+    --neutral-3:  var(--color-grey-3);
+    --neutral-4:  var(--color-grey-4);
+    --neutral-5:  var(--color-grey-5);
+    --neutral-6:  var(--color-grey-6);
+    --neutral-7:  var(--color-grey-7);
+    --neutral-8:  var(--color-grey-8);
+    --neutral-9:  var(--color-grey-9);
+    --neutral-10: var(--color-grey-10);
+    --neutral-11: var(--color-grey-11);
+    --neutral-12: var(--color-grey-12);
+
+    /* — Success green — */
+    --success-1:  var(--color-green-1);
+    --success-2:  var(--color-green-2);
+    --success-3:  var(--color-green-3);
+    --success-4:  var(--color-green-4);
+    --success-5:  var(--color-green-5);
+    --success-6:  var(--color-green-6);
+    --success-7:  var(--color-green-7);
+    --success-8:  var(--color-green-8);
+    --success-9:  var(--color-green-9);
+    --success-10: var(--color-green-10);
+    --success-11: var(--color-green-11);
+    --success-12: var(--color-green-12);
+
+    /* — Error red — */
+    --error-1:  var(--color-red-1);
+    --error-2:  var(--color-red-2);
+    --error-3:  var(--color-red-3);
+    --error-4:  var(--color-red-4);
+    --error-5:  var(--color-red-5);
+    --error-6:  var(--color-red-6);
+    --error-7:  var(--color-red-7);
+    --error-8:  var(--color-red-8);
+    --error-9:  var(--color-red-9);
+    --error-10: var(--color-red-10);
+    --error-11: var(--color-red-11);
+    --error-12: var(--color-red-12);
+
+    /* — Info blue — */
+    --info-1:  var(--color-blue-1);
+    --info-2:  var(--color-blue-2);
+    --info-3:  var(--color-blue-3);
+    --info-4:  var(--color-blue-4);
+    --info-5:  var(--color-blue-5);
+    --info-6:  var(--color-blue-6);
+    --info-7:  var(--color-blue-7);
+    --info-8:  var(--color-blue-8);
+    --info-9:  var(--color-blue-9);
+    --info-10: var(--color-blue-10);
+    --info-11: var(--color-blue-11);
+    --info-12: var(--color-blue-12);
+
+    /* — Warning orange — */
+    --warning-1:  var(--color-orange-1);
+    --warning-2:  var(--color-orange-2);
+    --warning-3:  var(--color-orange-3);
+    --warning-4:  var(--color-orange-4);
+    --warning-5:  var(--color-orange-5);
+    --warning-6:  var(--color-orange-6);
+    --warning-7:  var(--color-orange-7);
+    --warning-8:  var(--color-orange-8);
+    --warning-9:  var(--color-orange-9);
+    --warning-10: var(--color-orange-10);
+    --warning-11: var(--color-orange-11);
+    --warning-12: var(--color-orange-12);
+
+    /* — Spacing padding — */
+    --pad-none: 0px;
+    --pad-2xs:  4px;
+    --pad-xs:   6px;
+    --pad-sm:   8px;
+    --pad-md:   12px;
+    --pad-2md:  16px;
+    --pad-lg:   20px;
+    --pad-xl:   24px;
+    --pad-2xl:  32px;
+    --pad-3xl:  40px;
+
+    /* — Spacing gap — */
+    --gap-none: 0px;
+    --gap-2xs:  2px;
+    --gap-xs:   4px;
+    --gap-sm:   6px;
+    --gap-md:   8px;
+    --gap-2md:  12px;
+    --gap-lg:   16px;
+    --gap-xl:   20px;
+    --gap-2xl:  24px;
+    --gap-3xl:  28px;
+
+    /* — Layout spacing — */
+    --layout-0:  0px;
+    --layout-1:  16px;
+    --layout-2:  20px;
+    --layout-3:  24px;
+    --layout-4:  28px;
+    --layout-5:  32px;
+    --layout-6:  40px;
+    --layout-7:  48px;
+    --layout-8:  56px;
+    --layout-9:  64px;
+    --layout-10: 80px;
+    --layout-11: 96px;
+    --layout-12: 160px;
+
+    /* — Sizes — */
+    --sz-2xs: 20px;
+    --sz-xs:  24px;
+    --sz-sm:  28px;
+    --sz-md:  32px;
+    --sz-lg:  40px;
+    --sz-xl:  48px;
+    --sz-2xl: 56px;
+
+    /* — Border radius — */
+    --br-2xs:       4px;
+    --br-xs:        6px;
+    --br-sm:        8px;
+    --br-md:        10px;
+    --br-lg:        14px;
+    --br-layout:    20px;
+    --br-layout-xl: 32px;
+    --br-round:     9999px;
+
+    /* — Font sizes — */
+    --text-caption-sm: 12px;
+    --text-caption-md: 12px;
+    --text-body-sm:    14px;
+    --text-body-md:    16px;
+    --text-body-lg:    20px;
+    --text-heading-sm: 24px;
+    --text-heading-md: 28px;
+    --text-heading-lg: 32px;
+
+    /* — Line heights — */
+    --lh-body-sm:    21px;   /* 14 × 1.5 */
+    --lh-body-md:    24px;   /* 16 × 1.5 */
+    --lh-body-lg:    30px;   /* 20 × 1.5 */
+    --lh-caption:    12px;   /* 12 × 1   */
+    --lh-brand-md:   19.2px; /* 16 × 1.2 */
+
+    /* — Shadows — */
+    --shadow-card:         0 4px 6px rgba(142,141,143,0.09);
+    --shadow-object:       0 7px 7px rgba(142,141,143,0.09);
+    --shadow-nav:          0 4px 6px rgba(125,120,120,0.10);
+    --shadow-color-card:   0 4px 6px rgba(99,181,180,0.08);
+    --shadow-color-object: 0 7px 7px rgba(99,181,180,0.08);
+  }
+}

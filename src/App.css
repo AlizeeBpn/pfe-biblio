@@ -1,0 +1,5 @@
+/* App-level styles — utiliser les tokens via classes Tailwind ou CSS vars */
+html, body {
+  overflow-x: hidden;
+  scroll-behavior: auto !important; /* 'auto' est mieux que 'smooth' pour les changements d'onglets car c'est instantané */
+}

@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Figma__get_design_context",
+      "mcp__claude_ai_Figma__get_metadata",
+      "Bash(npx vite:*)",
+      "WebSearch",
+      "WebFetch(domain:help.figma.com)",
+      "mcp__claude_ai_Figma__get_screenshot",
+      "Bash(node -e ':*)",
+      "WebFetch(domain:www.figma.com)",
+      "Bash(npm install:*)",
+      "mcp__claude_ai_Figma__use_figma",
+      "Bash(node -e \"const z = require\\('./node_modules/@zxing/browser'\\); console.log\\(Object.keys\\(z\\).filter\\(k => k.includes\\('Format'\\) || k.includes\\('Hint'\\) || k.includes\\('Decode'\\)\\)\\);\")",
+      "Bash(node -e \"const z = require\\('./node_modules/@zxing/browser'\\); console.log\\(Object.keys\\(z.BarcodeFormat || {}\\)\\);\")",
+      "WebFetch(domain:bibliotheque.bordeaux.fr)",
+      "Bash(node -e \"try { const z = require\\('./node_modules/@zxing/library'\\); console.log\\(typeof z.DecodeHintType\\); } catch\\(e\\) { console.log\\('not found:', e.message\\); }\")",
+      "Bash(node -e \"const z = require\\('./node_modules/@zxing/library'\\); console.log\\(Object.keys\\(z.DecodeHintType\\).slice\\(0,10\\)\\);\")",
+      "Bash(node -e \"const z = require\\('./node_modules/@zxing/library'\\); const dh = z.DecodeHintType; console.log\\(Object.entries\\(dh\\).filter\\(\\([k]\\) => isNaN\\(k\\)\\).map\\(\\([k,v]\\) => k+':'+v\\)\\);\")",
+      "mcp__claude_ai_Figma__whoami",
+      "Bash(npx tsc:*)",
+      "Bash(npm run:*)"
+    ]
+  }
+}
