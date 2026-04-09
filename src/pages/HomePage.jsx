@@ -175,10 +175,10 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
         title="Mes réservations"
         count={RESERVED_BOOKS.length}
         books={RESERVED_BOOKS}
-        actionLabel="Annuler la réservation"
-        actionColor="var(--secondary-11)"
-        actionOutlined
-        onAction={() => {}}
+        cardAvailability="reserved"
+        pageActionLabel="Annuler la réservation"
+        pageActionVariant="outlined"
+        onPageAction={() => {}}
         onBack={() => setReservationOpen(false)}
       />
     );

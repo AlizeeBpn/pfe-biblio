@@ -625,10 +625,10 @@ export default function MonEspacePage({
         title="Mes réservations"
         count={RESERVED_BOOKS.length}
         books={RESERVED_BOOKS}
-        actionLabel="Annuler la réservation"
-        actionColor="var(--secondary-11)"
-        actionOutlined
-        onAction={() => {}}
+        cardAvailability="reserved"
+        pageActionLabel="Annuler la réservation"
+        pageActionVariant="outlined"
+        onPageAction={() => {}}
         onBack={() => setReservationSheet(null)}
         onBookSelect={onBookSelect}
       />
@@ -641,9 +641,9 @@ export default function MonEspacePage({
         title="Mes emprunts"
         count={BORROWED_BOOKS.length}
         books={BORROWED_BOOKS}
+        cardAvailability="borrowed"
         pageActionLabel="Prolonger"
-        pageActionBg="var(--secondary-3)"
-        pageActionColor="var(--secondary-11)"
+        pageActionVariant="primary"
         onPageAction={() => {}}
         onBack={() => setReservationSheet(null)}
         onBookSelect={onBookSelect}
