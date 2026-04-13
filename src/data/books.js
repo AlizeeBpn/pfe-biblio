@@ -55,7 +55,7 @@ export const BOOKS = [
     id: 4,
     title: 'Dune',
     author: 'Frank Herbert',
-    cover: 'https://www.figma.com/api/mcp/asset/2786d1e1-fdde-4f3e-8803-e460ee1e3b69',
+    cover: cover('9782266320948'),
     genres: ['Science-fiction', 'Aventure', 'Fantastique'],
     synopsis:
       "Sur la planète désertique Arrakis, source de la précieuse Épice, le jeune Paul Atréides affronte trahison et guerre pour son destin. L'épopée de science-fiction la plus vendue de l'histoire.",
@@ -84,7 +84,7 @@ export const BOOKS = [
     id: 6,
     title: 'Le Seigneur des Anneaux — La Communauté de l\'Anneau',
     author: 'J.R.R. Tolkien',
-    cover: 'https://www.figma.com/api/mcp/asset/32bbdb21-1227-4590-9a91-f8667789490b',
+    cover: cover('9782266283038'),
     genres: ['Fantastique', 'Aventure', 'Classique'],
     synopsis:
       "Le jeune hobbit Frodon Sacquet hérite d'un anneau unique aux pouvoirs terrifiants. Accompagné d'une communauté de nains, d'elfes, d'hommes et d'un magicien, il entame une quête désespérée vers la Montagne du Destin pour détruire l'artefact avant que Sauron ne s'en empare.",
@@ -98,7 +98,7 @@ export const BOOKS = [
     id: 7,
     title: 'Naruto — Tome 1',
     author: 'Masashi Kishimoto',
-    cover: 'https://www.figma.com/api/mcp/asset/7ff813b6-821d-4053-a915-01c3b8554fcf',
+    cover: cover('9782871294146'),
     genres: ['Manga', 'Action', 'Aventure'],
     synopsis:
       "Dans le village de Konoha, Naruto, un jeune orphelin cancre et garnement, rêve de devenir Hokage, le plus grand chef ninja. Porteur d'un lourd secret lié au Démon Renard à neuf queues scellé en lui, il doit prouver sa valeur à travers des épreuves périlleuses et des liens d'amitié indéfectibles.",
@@ -112,7 +112,7 @@ export const BOOKS = [
     id: 8,
     title: 'One Piece — Tome 1',
     author: 'Eiichiro Oda',
-    cover: 'https://www.figma.com/api/mcp/asset/87d784d4-8440-46a7-bac6-7fefac6abf96',
+    cover: cover('9782723449786'),
     genres: ['Manga', 'Aventure', 'Action'],
     synopsis:
       "Monkey D. Luffy, au corps élastique grâce à un fruit du démon, part en mer pour devenir Roi des Pirates et trouver le légendaire trésor One Piece. Le manga le plus vendu de l'histoire.",
@@ -154,7 +154,7 @@ export const BOOKS = [
     id: 11,
     title: 'Le Da Vinci Code',
     author: 'Dan Brown',
-    cover: 'https://www.figma.com/api/mcp/asset/913e4a3d-ac25-431b-bd3d-dbb0b04b34e6',
+    cover: cover('9782709626088'),
     genres: ['Policier', 'Thriller', 'Roman'],
     synopsis:
       "Le professeur Robert Langdon est appelé au Louvre où un conservateur a été retrouvé mort, laissant un message crypté. Une course contre la montre à travers les secrets millénaires de l'Église.",
@@ -183,7 +183,7 @@ export const BOOKS = [
     id: 13,
     title: 'Fahrenheit 451',
     author: 'Ray Bradbury',
-    cover: 'https://www.figma.com/api/mcp/asset/b219accf-33a1-4689-bbea-3ebf94c0d175',
+    cover: cover('9782070364336'),
     genres: ['Science-fiction', 'Dystopie'],
     synopsis:
       "Dans un futur où les livres sont interdits et brûlés, Guy Montag est pompier. Mais une rencontre éveille en lui le doute. Un cri d'alarme visionnaire contre la censure et l'abêtissement.",
@@ -225,7 +225,7 @@ export const BOOKS = [
     id: 16,
     title: 'Hunger Games — Tome 1',
     author: 'Suzanne Collins',
-    cover: 'https://www.figma.com/api/mcp/asset/fc7c0c46-95d0-41d4-826f-946697bf311f',
+    cover: cover('9782266179119'),
     genres: ['Science-fiction', 'Dystopie', 'Jeunesse', 'Aventure'],
     synopsis:
       "Dans Panem, la jeune Katniss se porte volontaire pour les Hunger Games : un combat à mort télévisé. Une dystopie haletante et politique sur le pouvoir des médias et la résistance.",
@@ -239,7 +239,7 @@ export const BOOKS = [
     id: 17,
     title: 'Orgueil et Préjugés',
     author: 'Jane Austen',
-    cover: 'https://www.figma.com/api/mcp/asset/a2187e64-537b-47d4-ac30-547a6ffeaec0',
+    cover: cover('9782070413522'),
     genres: ['Romance', 'Classique', 'Roman'],
     synopsis:
       "Elizabeth Bennet et Mr Darcy s'affrontent entre préjugés sociaux et orgueil dans l'Angleterre du XIXe siècle. Le roman romantique de Jane Austen, vif, intelligent et indémodable.",
@@ -254,7 +254,7 @@ export const BOOKS = [
     id: 18,
     title: 'Le Comte de Monte-Cristo',
     author: 'Alexandre Dumas',
-    cover: 'https://www.figma.com/api/mcp/asset/90112645-9d23-420b-b3fa-8afab4a9317b',
+    cover: cover('9782070409518'),
     genres: ['Aventure', 'Classique', 'Roman'],
     synopsis:
       "Edmond Dantès, injustement emprisonné, s'évade et revient sous une nouvelle identité pour se venger de ceux qui l'ont trahi. Le roman d'aventures et de vengeance d'Alexandre Dumas.",
@@ -338,7 +338,7 @@ export const BOOKS = [
     id: 24,
     title: 'Les Trois Mousquetaires',
     author: 'Alexandre Dumas',
-    cover: 'https://www.figma.com/api/mcp/asset/f256e287-b7e0-4c4f-8c7f-3a05c9da659c',
+    cover: cover('9782070413812'),
     genres: ['Aventure', 'Classique', 'Roman'],
     synopsis:
       "D'Artagnan monte à Paris rejoindre les mousquetaires du roi et se lie d'amitié avec Athos, Porthos et Aramis. Tous pour un, un pour tous : le roman d'aventures et de cape et d'épée d'Alexandre Dumas.",
@@ -367,7 +367,7 @@ export const BOOKS = [
     id: 26,
     title: 'Madame Bovary',
     author: 'Gustave Flaubert',
-    cover: 'https://www.figma.com/api/mcp/asset/9d75d4ae-b8f0-4273-a3d1-fb2a522c32bd',
+    cover: cover('9782070360451'),
     genres: ['Classique', 'Roman', 'Romance'],
     synopsis:
       "Emma Bovary, femme d'un médecin de province, rêve d'une vie romanesque et se noie dans des aventures et des dettes qui la mèneront à sa perte. Le roman réaliste de Flaubert, indémodable et bouleversant.",
@@ -381,7 +381,7 @@ export const BOOKS = [
     id: 27,
     title: 'Le Meurtre de Roger Ackroyd',
     author: 'Agatha Christie',
-    cover: 'https://www.figma.com/api/mcp/asset/e720d179-c633-49e3-b283-60f1b1876504',
+    cover: cover('9782253006381'),
     genres: ['Policier', 'Thriller', 'Classique'],
     synopsis:
       "Hercule Poirot, retiré dans un village anglais, est mêlé à l'affaire du meurtre de Roger Ackroyd. Un roman policier au dénouement si surprenant qu'il a révolutionné le genre. Le chef-d'œuvre d'Agatha Christie.",
@@ -395,7 +395,7 @@ export const BOOKS = [
     id: 28,
     title: 'Dragon Ball — Tome 1',
     author: 'Akira Toriyama',
-    cover: 'https://www.figma.com/api/mcp/asset/2fba6add-ecd5-4af8-82a3-507876454a4a',
+    cover: cover('9782723407809'),
     genres: ['Manga', 'Aventure', 'Action'],
     synopsis:
       "Le jeune Son Goku, doté d'une force surhumaine, rencontre Bulma et part à la recherche des sept Dragon Balls. Le manga culte d'Akira Toriyama qui a marqué des générations de lecteurs à travers le monde.",
@@ -409,7 +409,7 @@ export const BOOKS = [
     id: 29,
     title: 'Divergente — Tome 1',
     author: 'Veronica Roth',
-    cover: 'https://www.figma.com/api/mcp/asset/01c6aa12-94d0-410c-ad1e-eaa6beb24c62',
+    cover: cover('9782092528396'),
     genres: ['Science-fiction', 'Dystopie', 'Jeunesse', 'Aventure'],
     synopsis:
       "Dans un Chicago dystopique divisé en factions, Tris Prior découvre qu'elle est Divergente et ne peut appartenir à aucune faction. Une dystopie haletante pour jeunes adultes sur l'identité et la rébellion.",
@@ -438,7 +438,7 @@ export const BOOKS = [
     id: 31,
     title: 'Le Tour du Monde en 80 Jours',
     author: 'Jules Verne',
-    cover: 'https://www.figma.com/api/mcp/asset/001c9718-666d-4a0d-adb9-4e257e46b40f',
+    cover: cover('9782070412426'),
     genres: ['Aventure', 'Classique', 'Roman'],
     synopsis:
       "Phileas Fogg parie qu'il peut faire le tour du monde en 80 jours. Accompagné de son valet Passepartout et poursuivi par l'inspecteur Fix, il traverse l'Inde, le Japon et l'Amérique dans une course effrénée.",
@@ -480,7 +480,7 @@ export const BOOKS = [
     id: 34,
     title: 'Attack on Titan — Tome 1',
     author: 'Hajime Isayama',
-    cover: 'https://www.figma.com/api/mcp/asset/a9a5b562-589a-4b7c-afd2-0acf543aeabc',
+    cover: cover('9782811605070'),
     genres: ['Manga', 'Action', 'Science-fiction'],
     synopsis:
       "Humanity survives behind enormous walls, threatened by man-eating Titans. When the walls are breached, Eren Yeager vows to exterminate all Titans. Le manga dark fantasy devenu phénomène mondial.",
@@ -508,7 +508,7 @@ export const BOOKS = [
     id: 36,
     title: 'La Chronique des Bridgerton — Tome 1',
     author: 'Julia Quinn',
-    cover: 'https://www.figma.com/api/mcp/asset/4a524380-01aa-414d-9a15-135a032e3c0d',
+    cover: cover('9782290253571'),
     genres: ['Romance'],
     synopsis:
       "Dans la haute société londonienne de la Régence, Daphne Bridgerton doit trouver un époux. Elle conclut un pacte avec le séduisant Duc de Hastings : simuler un attachement pour éloigner les prétendants. Mais entre le faux semblant et les vrais sentiments, la frontière est mince.",
@@ -522,7 +522,7 @@ export const BOOKS = [
     id: 37,
     title: 'Red Rising — Tome 1',
     author: 'Pierce Brown',
-    cover: 'https://www.figma.com/api/mcp/asset/70d7a2c1-7733-49de-ae09-60345c2ff4f0',
+    cover: cover('9782017080114'),
     genres: ['Science-fiction', 'Dystopie', 'Aventure'],
     synopsis:
       "Sur une Mars colonisée, la société est divisée par une hiérarchie de couleurs. Darrow, un mineur Rouge exploité, découvre la vérité et se transforme pour infiltrer l'élite dorée et détruire le système de l'intérieur. Un thriller de science-fiction au rythme implacable.",
@@ -536,7 +536,7 @@ export const BOOKS = [
     id: 38,
     title: 'The Conditions of Will',
     author: 'Jessa Hastings',
-    cover: 'https://www.figma.com/api/mcp/asset/98422487-ac54-40a8-8a3e-20cfedd821e2',
+    cover: cover('9791042904005'),
     genres: ['Romance', 'Roman'],
     synopsis:
       "Georgia Carter, étudiante en psychologie clinique à Cambridge, se voit contrainte de retourner dans sa famille toxique pour les funérailles de son père. Face à une fratrie au bord de l'implosion et aux fantômes du passé, secrets et non-dits menacent de tout faire éclater. Une exploration poignante de la santé mentale et des liens familiaux.",
@@ -550,7 +550,7 @@ export const BOOKS = [
     id: 39,
     title: "Tout s'effondre",
     author: 'Chinua Achebe',
-    cover: 'https://www.figma.com/api/mcp/asset/8eee197e-1e38-49a4-8b98-17a49ba3a1e1',
+    cover: cover('9782330070403'),
     genres: ['Classique', 'Roman', 'Littérature africaine'],
     synopsis:
       "À travers le destin tragique d'Okonkwo, valeureux guerrier de la tribu Igbo, Chinua Achebe livre une plongée magistrale dans l'Afrique précoloniale. Face à l'arrivée des missionnaires et de l'administration britannique au Nigeria, les coutumes ancestrales se heurtent à la modernité occidentale. Une œuvre incontournable qui renverse les perspectives de l'histoire coloniale.",
@@ -565,7 +565,7 @@ export const BOOKS = [
     id: 40,
     title: 'Les petites mains du grand magasin',
     author: 'Ruth Kvarnström-Jones',
-    cover: 'https://www.figma.com/api/mcp/asset/d188d399-e7a6-40d9-875d-e0f7e0b3a620',
+    cover: cover('9782824626444'),
     genres: ['Roman historique', 'Roman'],
     synopsis:
       "Stockholm, 1913. Alors que l'Europe est au bord de la Première Guerre mondiale, le plus grand magasin de la ville ouvre ses portes, révolutionnant la société suédoise. La jeune Märta y trouve une place inespérée, mais sa joie est assombrie par le départ imminent de son fiancé pour le front. Entre les rayonnages, un lien de sororité indissoluble se tisse entre les employées.",

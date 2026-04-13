@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { IconStarFilled, IconBook2 } from '@tabler/icons-react'
 import Badge from './Badge'
@@ -42,8 +41,6 @@ export default function BookCard({
   onClick,
   className = '',
 }) {
-  const [imgError, setImgError] = useState(false)
-
   return (
     <motion.div
       whileTap={{ scale: 0.98 }}
@@ -75,12 +72,11 @@ export default function BookCard({
           boxShadow:               SHADOW_COVER,
         }}
       >
-        {cover && !imgError ? (
+        {cover ? (
           <img
             src={cover}
             alt={title}
             className="absolute inset-0 w-full h-full object-cover object-top"
-            onError={() => setImgError(true)}
           />
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ gap: '6px' }}>
