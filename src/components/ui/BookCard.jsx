@@ -1,6 +1,22 @@
 import { motion } from 'framer-motion'
-import { IconStarFilled, IconBook2 } from '@tabler/icons-react'
+import { IconStarFilled } from '@tabler/icons-react'
 import Badge from './Badge'
+
+/* Gradient palette based on first letter — deterministic, visually distinct */
+const GRADIENTS = [
+  ['#4f8ef7', '#7c3aed'], // A B C D
+  ['#f97316', '#ef4444'], // E F G H
+  ['#10b981', '#0891b2'], // I J K L
+  ['#8b5cf6', '#ec4899'], // M N O P
+  ['#f59e0b', '#d97706'], // Q R S T
+  ['#06b6d4', '#3b82f6'], // U V W X Y Z
+]
+
+function coverGradient(title = '') {
+  const code = (title[0] || 'A').toUpperCase().charCodeAt(0) - 65
+  const [from, to] = GRADIENTS[Math.floor(Math.max(0, code) / 5) % GRADIENTS.length]
+  return `linear-gradient(160deg, ${from}, ${to})`
+}
 
 /**
  * BookCard — Figma node 356:7052
@@ -79,21 +95,17 @@ export default function BookCard({
             className="absolute inset-0 w-full h-full object-cover object-top"
           />
         ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ gap: '6px' }}>
-            <IconBook2 size={32} color="var(--neutral-6)" strokeWidth={1.5} />
+          <div className="absolute inset-0 flex items-center justify-center"
+            style={{ background: coverGradient(title) }}>
             <span style={{
-              fontSize:   '10px',
-              fontWeight: 500,
-              color:      'var(--neutral-7)',
-              textAlign:  'center',
-              padding:    '0 8px',
-              lineHeight: 1.3,
-              overflow:   'hidden',
-              display:    '-webkit-box',
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: 'vertical',
+              fontSize:   '56px',
+              fontWeight: 800,
+              color:      'rgba(255,255,255,0.9)',
+              lineHeight: 1,
+              userSelect: 'none',
+              textShadow: '0 2px 8px rgba(0,0,0,0.18)',
             }}>
-              {title}
+              {(title[0] || '?').toUpperCase()}
             </span>
           </div>
         )}

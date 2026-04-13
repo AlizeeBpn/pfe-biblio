@@ -140,7 +140,7 @@ export const BOOKS = [
     id: 10,
     title: 'Vingt Mille Lieues Sous Les Mers',
     author: 'Jules Verne',
-    cover: cover('9782070360246'),
+    cover: '/covers/vingt-mille-lieues.jpg',
     genres: ['Aventure', 'Classique', 'Science-fiction'],
     synopsis:
       "Le professeur Aronnax part à la poursuite d'un mystérieux monstre marin et se retrouve prisonnier du capitaine Nemo à bord du Nautilus. Un chef-d'œuvre d'anticipation scientifique.",
