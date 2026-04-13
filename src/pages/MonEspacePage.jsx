@@ -22,12 +22,20 @@ import {
   IconCalendarCheck,
 } from '@tabler/icons-react';
 import { BottomNavigation } from '../components/ui/BottomNavigation';
-import Book3D from '../components/Book3D';
+import Badge from '../components/ui/Badge';
+import { TabList } from '../components/ui/Tab';
 import { BookListPage } from '../components/BookListPage';
 import { BOOKS as ALL_BOOKS } from '../data/books';
 
-const RESERVED_BOOKS = ALL_BOOKS.slice(0, 5);
-const BORROWED_BOOKS = ALL_BOOKS.slice(0, 5);
+const RESERVED_BOOKS = ALL_BOOKS.slice(0, 4);
+const BORROWED_BOOKS = [
+  ALL_BOOKS.find(b => b.id === 7),  // Naruto — 24 juin 2026
+  ALL_BOOKS.find(b => b.id === 6),  // Seigneur des Anneaux — 24 juin 2026
+  ALL_BOOKS.find(b => b.id === 5),  // Harry Potter — 12 juillet 2026 (dernier)
+].map((b) => ({
+  ...b,
+  returnDate: b.id === 5 ? '12 juillet 2026' : '24 juin 2026',
+}));
 
 /* ════════════════════════════════════════════════════
    SHADOWS
@@ -38,47 +46,13 @@ const SHADOW_LIST = '0px 18px 7px rgba(142,141,143,0.01),0px 10px 6px rgba(142,1
 const SHADOW_BOOK_CARD = '0px 2px 10px rgba(142,141,143,0.07)';
 const SHADOW_DROPDOWN = '0px 10px 20px rgba(142,141,143,0.20), 0px 10px 38px rgba(142,141,143,0.35)';
 
-/* ════════════════════════════════════════════════════
-   TAB BAR
-   ════════════════════════════════════════════════════ */
-function TabBar({ tabs, active, onChange }) {
-  return (
-    <div className="flex items-start w-full">
-      {tabs.map((tab) => (
-        <motion.button
-          key={tab}
-          type="button"
-          whileTap={{ scale: 0.95 }}
-          onClick={() => onChange(tab)}
-          className="flex flex-col items-center justify-center outline-none border-none bg-transparent cursor-pointer shrink-0"
-          style={{ gap: '8px', padding: '6px 8px' }}
-        >
-          <span style={{
-            fontSize:   '16px',
-            fontWeight: 700,
-            lineHeight: 1.5,
-            color:      active === tab ? 'var(--primary-11)' : 'var(--neutral-10)',
-            whiteSpace: 'nowrap',
-          }}>
-            {tab}
-          </span>
-          <div style={{
-            height:          '4px',
-            width:           '40px',
-            borderRadius:    '2px',
-            backgroundColor: active === tab ? 'var(--primary-9)' : 'transparent',
-            transition:      'background-color 0.2s',
-          }} />
-        </motion.button>
-      ))}
-    </div>
-  );
-}
 
 /* ════════════════════════════════════════════════════
    INFO CARD
    ════════════════════════════════════════════════════ */
-function InfoCard({ category, count, typeLabel, badge, badgeIcon: BadgeIcon, badgeColor, badgeBg, onClick }) {
+const BADGE_ICON_COLOR = { success: 'var(--success-11)', default: 'var(--secondary-11)' };
+
+function InfoCard({ category, count, typeLabel, badge, badgeIcon: BadgeIcon, badgeVariant = 'default', onClick }) {
   return (
     <motion.div
       whileTap={{ scale: 0.98 }}
@@ -106,10 +80,9 @@ function InfoCard({ category, count, typeLabel, badge, badgeIcon: BadgeIcon, bad
             <span style={{ fontSize: '20px', fontWeight: 800, lineHeight: 1.5, color: 'var(--color-text-title)' }}>{count}</span>
             <span style={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, color: 'var(--color-text-title)' }}>{typeLabel}</span>
           </div>
-          <div className="inline-flex items-center shrink-0" style={{ height: '24px', padding: '4px', gap: '4px', backgroundColor: badgeBg ?? 'var(--success-3)', borderRadius: '2px' }}>
-            {BadgeIcon && <BadgeIcon size={16} strokeWidth={2} color={badgeColor ?? 'var(--success-11)'} />}
-            <span style={{ fontSize: '10px', fontWeight: 600, lineHeight: 1, color: badgeColor ?? 'var(--success-11)', whiteSpace: 'nowrap' }}>{badge}</span>
-          </div>
+          <Badge variant={badgeVariant} size="medium" icon={BadgeIcon && <BadgeIcon size={14} strokeWidth={2} color={BADGE_ICON_COLOR[badgeVariant]} />}>
+            {badge}
+          </Badge>
         </div>
       </div>
       <div className="flex items-center justify-end w-full" style={{ gap: '4px' }}>
@@ -414,14 +387,10 @@ function ListBookCard({ book, removeMode, onRemove, onSelect }) {
     >
       {/* Cover */}
       <div style={{ width: '127px', height: '100%', flexShrink: 0, borderRadius: '8px 8px 0 0', overflow: 'hidden', position: 'relative' }}>
-        <Book3D
-          cover={book.cover}
-          title={book.title}
-          author={book.author}
-          width={127}
-          height={144}
-          style={{ borderRadius: '8px 8px 0 0', borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}
-        />
+        {book.cover
+          ? <img src={book.cover} alt={book.title} style={{ width: '127px', height: '144px', objectFit: 'cover', borderRadius: '8px 8px 0 0' }} />
+          : <div style={{ width: '127px', height: '144px', backgroundColor: 'var(--neutral-3)', borderRadius: '8px 8px 0 0' }} />
+        }
       </div>
 
       {/* Remove button (remove mode) */}
@@ -452,17 +421,13 @@ function ListBookCard({ book, removeMode, onRemove, onSelect }) {
         {/* Availability + Rating row */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {/* Badge disponibilité */}
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: '6px',
-            height: '32px', padding: '0 8px', borderRadius: '4px',
-            backgroundColor: book.available !== false ? 'var(--success-3)' : 'var(--secondary-3)',
-            flexShrink: 0,
-          }}>
-            <IconCalendarCheck size={16} strokeWidth={1.8} color={book.available !== false ? 'var(--success-11)' : 'var(--secondary-11)'} />
-            <span style={{ fontSize: '12px', fontWeight: 600, lineHeight: 1, color: book.available !== false ? 'var(--success-12)' : 'var(--secondary-12)', whiteSpace: 'nowrap' }}>
-              {book.available !== false ? 'Disponible' : 'Indisponible'}
-            </span>
-          </div>
+          <Badge
+            variant={book.available !== false ? 'success' : 'default'}
+            size="large"
+            icon={<IconCalendarCheck size={16} strokeWidth={1.8} color={book.available !== false ? 'var(--success-11)' : 'var(--secondary-11)'} />}
+          >
+            {book.available !== false ? 'Disponible' : 'Indisponible'}
+          </Badge>
 
           {/* Rating */}
           {book.rating && (
@@ -596,25 +561,24 @@ export default function MonEspacePage({
   onDeleteList,
   onRemoveBookFromList,
   onBookSelect,
+  initialSheet = null,
 }) {
   const [activeTabInternal, setActiveTabInternal] = useState('Mon Espace');
   const activeTab    = activeTabProp ?? activeTabInternal;
   const setActiveTab = onTabChange   ?? setActiveTabInternal;
 
-  const [currentTab,     setCurrentTab]     = useState('Mon activité');
+  const [currentTabIdx,  setCurrentTabIdx]  = useState(0);
   const [tabDir,         setTabDir]         = useState(0);
 
-  const changeTab = (newTab) => {
-    const oldIdx = NAV_TABS.indexOf(currentTab);
-    const newIdx = NAV_TABS.indexOf(newTab);
-    setTabDir(newIdx > oldIdx ? 1 : -1);
-    setCurrentTab(newTab);
+  const changeTab = (newIdx) => {
+    setTabDir(newIdx > currentTabIdx ? 1 : -1);
+    setCurrentTabIdx(newIdx);
   };
   const [qrOpen,           setQrOpen]           = useState(false);
   const [createListOpen,   setCreateListOpen]   = useState(false);
   const [renameTarget,     setRenameTarget]     = useState(null);
   const [selectedListId,   setSelectedListId]   = useState(null);
-  const [reservationSheet, setReservationSheet] = useState(null); // null | 'reservations' | 'emprunts'
+  const [reservationSheet, setReservationSheet] = useState(initialSheet); // null | 'reservations' | 'emprunts'
 
   const selectedList = selectedListId !== null ? lists.find((l) => l.id === selectedListId) ?? null : null;
 
@@ -643,7 +607,7 @@ export default function MonEspacePage({
         books={BORROWED_BOOKS}
         cardAvailability="borrowed"
         pageActionLabel="Prolonger"
-        pageActionVariant="primary"
+        pageActionVariant="secondary"
         onPageAction={() => {}}
         onBack={() => setReservationSheet(null)}
         onBookSelect={onBookSelect}
@@ -717,12 +681,12 @@ export default function MonEspacePage({
         </motion.button>
 
         {/* Tabs */}
-        <TabBar tabs={NAV_TABS} active={currentTab} onChange={changeTab} />
+        <TabList tabs={NAV_TABS} value={currentTabIdx} onChange={changeTab} />
 
         {/* ── Tab content (swipeable + directional slide) ── */}
         <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          key={currentTab}
+          key={currentTabIdx}
           initial={{ opacity: 0, x: tabDir * 28 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -tabDir * 28 }}
@@ -731,32 +695,31 @@ export default function MonEspacePage({
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.08}
           onDragEnd={(_, info) => {
-            const idx = NAV_TABS.indexOf(currentTab);
-            if (info.offset.x < -50 && idx < NAV_TABS.length - 1) changeTab(NAV_TABS[idx + 1]);
-            else if (info.offset.x > 50 && idx > 0) changeTab(NAV_TABS[idx - 1]);
+            if (info.offset.x < -50 && currentTabIdx < NAV_TABS.length - 1) changeTab(currentTabIdx + 1);
+            else if (info.offset.x > 50 && currentTabIdx > 0) changeTab(currentTabIdx - 1);
           }}
           style={{ touchAction: 'pan-y', cursor: 'grab' }}
         >
 
         {/* ── Réservations tab ── */}
-        {currentTab === 'Mon activité' && (
+        {currentTabIdx === 0 && (
           <div className="flex flex-col" style={{ gap: '32px' }}>
             <div className="flex flex-col" style={{ gap: '12px' }}>
               <p style={{ fontFamily: 'var(--font-brand)', fontSize: '20px', fontWeight: 700, lineHeight: 1.5, color: 'var(--color-text-brand)', margin: 0 }}>Réservation et prêt</p>
               <div className="flex" style={{ gap: '6px' }}>
                 <motion.div style={{ flex: '1 0 0', minWidth: 0 }} initial={{ opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.04, type: 'spring', stiffness: 260, damping: 20 }}>
-                  <InfoCard category="Réservations" count="5" typeLabel="Titres" badge="Disponible à Mériadeck" badgeIcon={IconShoppingBagCheck} badgeColor="var(--success-12)" badgeBg="var(--success-3)" onClick={() => setReservationSheet('reservations')} />
+                  <InfoCard category="Réservations" count="4" typeLabel="Titres" badge="Disponible à Mériadeck" badgeIcon={IconShoppingBagCheck} badgeVariant="success" onClick={() => setReservationSheet('reservations')} />
                 </motion.div>
                 <motion.div style={{ flex: '1 0 0', minWidth: 0 }} initial={{ opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, type: 'spring', stiffness: 260, damping: 20 }}>
-                  <InfoCard category="Services" count="1" typeLabel="Salle d'étude" badge="12 janv. (9h - 12h)" badgeIcon={IconCalendarEvent} badgeColor="var(--secondary-12)" badgeBg="var(--secondary-3)" />
+                  <InfoCard category="Services" count="1" typeLabel="Salle d'étude" badge="12 janv. (9h - 12h)" badgeIcon={IconCalendarEvent} badgeVariant="default" />
                 </motion.div>
               </div>
               <div className="flex" style={{ gap: '6px' }}>
                 <motion.div style={{ flex: '1 0 0', minWidth: 0 }} initial={{ opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, type: 'spring', stiffness: 260, damping: 20 }}>
-                  <InfoCard category="Prêt bibliothèque" count="5" typeLabel="Emprunts" badge="12 janv. 2026" badgeIcon={IconCalendarTime} badgeColor="var(--secondary-12)" badgeBg="var(--secondary-3)" onClick={() => setReservationSheet('emprunts')} />
+                  <InfoCard category="Prêt bibliothèque" count="3" typeLabel="Emprunts" badge="24 juin 2026" badgeIcon={IconCalendarTime} badgeVariant="default" onClick={() => setReservationSheet('emprunts')} />
                 </motion.div>
                 <motion.div style={{ flex: '1 0 0', minWidth: 0 }} initial={{ opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16, type: 'spring', stiffness: 260, damping: 20 }}>
-                  <InfoCard category="Prêt numérique" count="1" typeLabel="Emprunts" badge="12 janv. 2026" badgeIcon={IconCalendarTime} badgeColor="var(--secondary-12)" badgeBg="var(--secondary-3)" onClick={() => setReservationSheet('emprunts')} />
+                  <InfoCard category="Prêt numérique" count="1" typeLabel="Emprunts" badge="12 janv. 2026" badgeIcon={IconCalendarTime} badgeVariant="default" onClick={() => setReservationSheet('emprunts')} />
                 </motion.div>
               </div>
             </div>
@@ -783,7 +746,7 @@ export default function MonEspacePage({
         )}
 
         {/* ── Mes listes tab ── */}
-        {currentTab === 'Mes listes' && (
+        {currentTabIdx === 1 && (
           <div className="flex flex-col" style={{ gap: '20px' }}>
             <div className="flex items-center" style={{ gap: '16px' }}>
               <p style={{ flex: '1 0 0', fontFamily: 'var(--font-brand)', fontSize: '20px', fontWeight: 700, lineHeight: 1.5, color: 'var(--color-text-brand)', margin: 0 }}>
@@ -821,7 +784,7 @@ export default function MonEspacePage({
         )}
 
         {/* ── Historique tab ── */}
-        {currentTab === 'Historique' && (
+        {currentTabIdx === 2 && (
           <EmptyState icon={IconHistory} label="Votre historique de lecture est vide." />
         )}
 

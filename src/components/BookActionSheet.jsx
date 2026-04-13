@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconX, IconStar, IconCalendarCheck } from '@tabler/icons-react';
-import Book3D from './Book3D';
+import Badge from './ui/Badge';
 
 const SHADOW_BOOK_CARD = '0px 2px 10px rgba(142,141,143,0.07)';
 
@@ -27,8 +27,10 @@ function BookActionCard({ book, actionLabel, actionBg, actionColor, onAction, on
     >
       {/* Cover */}
       <div style={{ width: '127px', flexShrink: 0, borderRadius: '8px 8px 0 0', overflow: 'hidden', position: 'relative' }}>
-        <Book3D cover={book.cover} title={book.title} author={book.author} width={127} height={158}
-          style={{ borderRadius: '8px 8px 0 0', borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} />
+        {book.cover
+          ? <img src={book.cover} alt={book.title} style={{ width: '127px', height: '158px', objectFit: 'cover', borderRadius: '8px 8px 0 0' }} />
+          : <div style={{ width: '127px', height: '158px', backgroundColor: 'var(--neutral-3)' }} />
+        }
       </div>
 
       {/* Content */}
@@ -36,16 +38,13 @@ function BookActionCard({ book, actionLabel, actionBg, actionColor, onAction, on
 
         {/* Badge + rating */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: '6px',
-            height: '28px', padding: '0 8px', borderRadius: '4px', flexShrink: 0,
-            backgroundColor: book.available !== false ? 'var(--success-3)' : 'var(--secondary-3)',
-          }}>
-            <IconCalendarCheck size={14} strokeWidth={1.8} color={book.available !== false ? 'var(--success-11)' : 'var(--secondary-11)'} />
-            <span style={{ fontSize: '11px', fontWeight: 600, lineHeight: 1, whiteSpace: 'nowrap', color: book.available !== false ? 'var(--success-12)' : 'var(--secondary-12)' }}>
-              {book.available !== false ? 'Disponible' : 'Indisponible'}
-            </span>
-          </div>
+          <Badge
+            variant={book.available !== false ? 'success' : 'default'}
+            size="medium"
+            icon={<IconCalendarCheck size={14} strokeWidth={1.8} color={book.available !== false ? 'var(--success-11)' : 'var(--secondary-11)'} />}
+          >
+            {book.available !== false ? 'Disponible' : 'Indisponible'}
+          </Badge>
           {book.rating && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               <span style={{ fontSize: '11px', fontWeight: 500, color: 'var(--color-text-subtle)' }}>{book.rating}/5</span>

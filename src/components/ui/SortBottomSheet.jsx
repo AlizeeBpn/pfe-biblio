@@ -54,7 +54,7 @@ function RadioRow({ label, checked, onSelect }) {
               width:           '12px',
               height:          '12px',
               borderRadius:    '9999px',
-              backgroundColor: 'var(--primary-10)',
+              backgroundColor: 'var(--primary-8)',
             }} />
           )}
         </div>

@@ -211,7 +211,7 @@ export const BOOKS = [
     id: 15,
     title: 'Steve Jobs',
     author: 'Walter Isaacson',
-    cover: cover('9782709638876'),
+    cover: null,
     genres: ['Biographie', 'Non-fiction'],
     synopsis:
       "La biographie définitive du co-fondateur d'Apple, basée sur des dizaines d'interviews exclusives. La vie d'un génie visionnaire, perfectionniste et impitoyable qui a révolutionné la tech.",

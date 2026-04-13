@@ -8,6 +8,7 @@ import {
   IconCalendarTime,
   IconX,
 } from '@tabler/icons-react';
+import Badge from './ui/Badge';
 
 const SHADOW_OBJECT =
   '0px 16px 9px 0px rgba(142,141,143,0.05),0px 7px 7px 0px rgba(142,141,143,0.09),0px 2px 4px 0px rgba(142,141,143,0.1),0px -11px 4px 0px rgba(142,141,143,0.01),0px -6px 4px 0px rgba(142,141,143,0.05),0px -3px 3px 0px rgba(142,141,143,0.09),0px -1px 2px 0px rgba(142,141,143,0.1)';
@@ -81,31 +82,14 @@ export default function BookBottomSheet({ book, onClose, onViewBook }) {
         width:       '100%',
         boxSizing:   'border-box',
       }}>
-        {/* Disponible badge — success-3 bg, h-32, icon + SemiBold 12px */}
-        <div style={{
-          display:         'inline-flex',
-          alignItems:      'center',
-          gap:             '6px',
-          flex:            '1 0 0',
-          height:          '32px',
-          padding:         '0 8px',
-          backgroundColor: available ? 'var(--success-3)' : 'var(--warning-3)',
-          borderRadius:    'var(--br-2xs)',
-          alignSelf:       'stretch',
-          maxWidth:        'fit-content',
-        }}>
-          <IconCalendarTime size={20} strokeWidth={2} color={available ? 'var(--success-11)' : 'var(--warning-11)'} />
-          <span style={{
-            fontFamily: 'var(--font-body)',
-            fontSize:   '12px',
-            fontWeight: 600,
-            lineHeight: 1,
-            color:      available ? 'var(--success-12)' : 'var(--warning-12)',
-            whiteSpace: 'nowrap',
-          }}>
-            {available ? 'Disponible' : 'Indisponible'}
-          </span>
-        </div>
+        {/* Disponible badge */}
+        <Badge
+          variant={available ? 'success' : 'warning'}
+          size="large"
+          icon={<IconCalendarTime size={16} strokeWidth={2} color={available ? 'var(--success-11)' : 'var(--warning-11)'} />}
+        >
+          {available ? 'Disponible' : 'Indisponible'}
+        </Badge>
 
         {/* Spacer */}
         <div style={{ flex: 1 }} />
@@ -234,27 +218,9 @@ export default function BookBottomSheet({ book, onClose, onViewBook }) {
                 </div>
               )}
 
-              {/* Genre badges — secondary-3, caption-sm 10px SemiBold */}
+              {/* Genre badges */}
               {genreList.map((g) => (
-                <div key={g} style={{
-                  display:         'inline-flex',
-                  alignItems:      'center',
-                  height:          '28px',
-                  padding:         '0 6px',
-                  backgroundColor: 'var(--secondary-3)',
-                  borderRadius:    'var(--br-2xs)',
-                }}>
-                  <span style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize:   '10px',
-                    fontWeight: 600,
-                    lineHeight: 1,
-                    color:      'var(--secondary-12)',
-                    whiteSpace: 'nowrap',
-                  }}>
-                    {g.trim()}
-                  </span>
-                </div>
+                <Badge key={g} variant="default" size="large">{g.trim()}</Badge>
               ))}
             </div>
 

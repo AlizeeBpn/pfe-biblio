@@ -16,12 +16,14 @@ import { BarButton }        from '../components/ui/BarButton';
 import { BottomNavigation } from '../components/ui/BottomNavigation';
 import { BookListPage }     from '../components/BookListPage';
 import { BOOKS as ALL_BOOKS } from '../data/books';
+import Badge from '../components/ui/Badge';
 
 /* ── Book cover asset (Figma MCP — 7-day TTL) ── */
 const imgBookCover = 'https://www.figma.com/api/mcp/asset/435c7b2d-e051-4870-802b-ea1a5cf05cbf';
 
 /* ── Sample data ── */
-const RESERVED_BOOKS = ALL_BOOKS.slice(0, 5);
+const RESERVED_BOOKS = ALL_BOOKS.slice(0, 4);
+const NARUTO = ALL_BOOKS.find(b => b.id === 7);
 
 /* ════════════════════════════════════════════════════
    SHADOWS  (exact Figma values)
@@ -42,43 +44,6 @@ const SHADOW_OBJECT =       // object-depth-neutral-2 (book cover)
    Header → p:16px
    ════════════════════════════════════════════════════ */
 
-/* ── DateBadge — faithful to Figma node 311:773
-   icon stroke: #7D193E = secondary-10
-   text color : #2B0815 = secondary-12
-*/
-function DateBadge({ icon: Icon, children }) {
-  return (
-    <div
-      className="inline-flex items-center"
-      style={{
-        alignSelf:       'flex-start',           // hug: never stretch in flex-col parent
-        height:          '28px',
-        padding:         '6px',
-        gap:             '6px',
-        backgroundColor: 'var(--secondary-3)',   // #F8E2EA
-        borderRadius:    '2px',
-      }}
-    >
-      {Icon && (
-        <Icon
-          size={20}
-          strokeWidth={2}
-          color="var(--secondary-10)"            // #7D193E — matches Figma vector border
-          style={{ flexShrink: 0 }}
-        />
-      )}
-      <span style={{
-        fontSize:   '12px',
-        fontWeight: 600,
-        lineHeight: 1,
-        color:      'var(--secondary-12)',       // #2B0815
-        whiteSpace: 'nowrap',
-      }}>
-        {children}
-      </span>
-    </div>
-  );
-}
 
 /* ── Section title — Lora Bold 20px color-text-brand ── */
 function SectionTitle({ children }) {
@@ -119,38 +84,35 @@ function ReservationCard({ books = [], count = 5, onClick }) {
     <motion.div
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      style={{ ...CARD, display: 'flex', padding: '12px 12px 0', overflow: 'hidden', cursor: 'pointer' }}
+      style={{ ...CARD, display: 'flex', alignItems: 'stretch', overflow: 'hidden', cursor: 'pointer', minHeight: '120px', gap: 'var(--gap-2md)' }}
     >
-      {/* Cover area — same 127px slot as BookCard, two gently tilted books */}
-      <div style={{ width: '127px', flexShrink: 0, position: 'relative', overflow: 'hidden', alignSelf: 'stretch', borderRadius: '8px 8px 0 0' }}>
+      {/* Cover area — two gently tilted books, no inner overflow:hidden so rotation isn't clipped */}
+      <div style={{ width: '120px', flexShrink: 0, position: 'relative', alignSelf: 'stretch' }}>
         {/* Back book */}
         <div style={{
-          position: 'absolute', left: '6px', top: '16px',
+          position: 'absolute', left: '4px', bottom: '0px',
           transform: 'rotate(-10deg)', transformOrigin: 'bottom center',
-          borderRadius: '6px', width: 59, height: 91,
+          borderRadius: '6px', width: 64, height: 100,
           backgroundColor: '#af9494', boxShadow: SHADOW_OBJECT_BOOK, overflow: 'hidden',
         }}>
           {cover1 && <img src={cover1} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />}
         </div>
         {/* Front book */}
         <div style={{
-          position: 'absolute', left: '46px', top: '6px',
-          transform: 'rotate(8deg)', transformOrigin: 'bottom center',
-          borderRadius: '6px', width: 59, height: 91,
-          backgroundColor: '#af9494', boxShadow: SHADOW_OBJECT_BOOK, overflow: 'hidden',
+          position: 'absolute', left: '44px', bottom: '0px',
+          transform: 'rotate(10deg)', transformOrigin: 'bottom center',
+          borderRadius: '6px', width: 64, height: 100,
+          backgroundColor: '#c0a898', boxShadow: SHADOW_OBJECT_BOOK, overflow: 'hidden',
         }}>
           {cover2 && <img src={cover2} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />}
         </div>
       </div>
 
-      {/* Info — same padding as BookCard content, text aligns with cards below */}
-      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4, padding: '0 0 16px 12px' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, height: 28, padding: '0 6px', backgroundColor: 'var(--success-3)', borderRadius: 2, alignSelf: 'flex-start' }}>
-          <IconShoppingBagCheck size={20} strokeWidth={1.8} color="var(--success-11)" />
-          <span style={{ fontSize: 12, fontWeight: 600, lineHeight: 1, color: 'var(--success-12)', whiteSpace: 'nowrap' }}>
-            Disponible à Mériadeck
-          </span>
-        </div>
+      {/* Info */}
+      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4, padding: '16px 12px 16px 8px' }}>
+        <Badge variant="success" size="large" icon={<IconShoppingBagCheck size={16} strokeWidth={1.8} color="var(--success-11)" />}>
+          Disponible à Mériadeck
+        </Badge>
         <p style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.5, color: 'var(--color-text-title)', margin: 0 }}>
           {count} titre{count > 1 ? 's' : ''} vous attendent
         </p>
@@ -162,7 +124,7 @@ function ReservationCard({ books = [], count = 5, onClick }) {
   );
 }
 
-export default function HomePage({ activeTab: activeTabProp, onTabChange, onScanOpen }) {
+export default function HomePage({ activeTab: activeTabProp, onTabChange, onScanOpen, onShowEmprunts }) {
   const [activeTabInternal, setActiveTabInternal] = useState('Accueil');
   const activeTab   = activeTabProp  ?? activeTabInternal;
   const setActiveTab = onTabChange   ?? setActiveTabInternal;
@@ -261,7 +223,7 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
         <BarButton
           tabs={[
             { label: 'Raccourcie',  icon: IconCalendarStar },
-            { label: 'Actualitées', icon: IconRss },
+            { label: 'Actualités', icon: IconRss },
           ]}
           size="medium"
           value={activeSection}
@@ -274,17 +236,35 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
           {/* ════ RÉSERVATIONS ════ */}
           <section className="flex flex-col" style={{ gap: '12px' }}>
             <SectionTitle>Réservations</SectionTitle>
-            <motion.div
-              initial={{ opacity: 0, y: -14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05, type: 'spring', stiffness: 160, damping: 16 }}
-            >
-              <ReservationCard
-                books={RESERVED_BOOKS}
-                count={RESERVED_BOOKS.length}
-                onClick={() => setReservationOpen(true)}
-              />
-            </motion.div>
+            <div className="flex flex-col" style={{ gap: '16px' }}>
+              <motion.div
+                initial={{ opacity: 0, y: -14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05, type: 'spring', stiffness: 160, damping: 16 }}
+              >
+                <ReservationCard
+                  books={RESERVED_BOOKS}
+                  count={RESERVED_BOOKS.length}
+                  onClick={() => setReservationOpen(true)}
+                />
+              </motion.div>
+              <div className="flex justify-end">
+                <motion.button
+                  type="button"
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setReservationOpen(true)}
+                  className="inline-flex items-center outline-none"
+                  style={{
+                    gap: '6px', height: '40px', padding: '0 16px', borderRadius: '8px',
+                    background: 'var(--primary-3)', color: 'var(--primary-11)',
+                    fontSize: '14px', fontWeight: 700, lineHeight: 1.5, flexShrink: 0,
+                  }}
+                >
+                  Voir tout (4 réservations)
+                  <IconArrowRight size={16} strokeWidth={2} />
+                </motion.button>
+              </div>
+            </div>
           </section>
 
           {/* ════ REPRENDRE LA LECTURE ════
@@ -321,7 +301,7 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
                 <div className="flex flex-col flex-1 h-full" style={{ gap: '8px' }}>
 
                   {/* Badge — calendar-time, h:28px, p:6px, radius:2px, semibold */}
-                  <DateBadge icon={IconCalendarTime}>12 janvier 2024</DateBadge>
+                  <Badge variant="default" size="large" icon={<IconCalendarTime size={16} strokeWidth={2} color="var(--secondary-11)" />}>12 juin 2024</Badge>
 
                   {/* Title + author */}
                   <div className="flex flex-col flex-1" style={{ gap: '2px' }}>
@@ -407,7 +387,7 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
                       boxShadow:               '0px 18px 7px rgba(125,120,120,0.01), 0px 10px 6px rgba(125,120,120,0.05), 0px 4px 4px rgba(125,120,120,0.09), 0px 1px 2px rgba(125,120,120,0.1)',
                     }}
                   >
-                    <img src={imgBookCover} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                    <img src={NARUTO?.cover} alt="" className="absolute inset-0 w-full h-full object-cover object-top" />
                   </div>
 
                   {/* content — padding-bottom 12px, gap 8px */}
@@ -415,7 +395,7 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
                     className="flex flex-col flex-1"
                     style={{ gap: '8px', paddingBottom: '12px', alignSelf: 'flex-start' }}
                   >
-                    <DateBadge icon={IconCalendarTime}>12 janvier 2024</DateBadge>
+                    <Badge variant="default" size="large" icon={<IconCalendarTime size={16} strokeWidth={2} color="var(--secondary-11)" />}>24 juin 2026</Badge>
 
                     {/* content-text — gap 2px */}
                     <div className="flex flex-col" style={{ gap: '2px' }}>
@@ -424,13 +404,13 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
                         color: 'var(--color-text-title)', margin: 0,
                         overflow: 'hidden', textOverflow: 'ellipsis',
                       }}>
-                        Vingt Mille Lieues Sous Les Mers
+                        {NARUTO?.title}
                       </p>
                       <p style={{
                         fontSize: '14px', fontWeight: 500, lineHeight: 1.5,
                         color: 'var(--color-text-body)', margin: 0, whiteSpace: 'nowrap',
                       }}>
-                        Jules Vernes
+                        {NARUTO?.author}
                       </p>
                     </div>
                   </div>
@@ -442,21 +422,22 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
                 <motion.button
                   type="button"
                   whileTap={{ scale: 0.95 }}
+                  onClick={onShowEmprunts}
                   className="inline-flex items-center outline-none"
                   style={{
                     gap:          '6px',
                     height:       '40px',
                     padding:      '0 16px',
-                    borderRadius: '8px',            // br-sm
+                    borderRadius: '8px',
                     background:   'var(--primary-3)',
                     color:        'var(--primary-11)',
                     fontSize:     '14px',
-                    fontWeight:   700,               // Bold
+                    fontWeight:   700,
                     lineHeight:   1.5,
                     flexShrink:   0,
                   }}
                 >
-                  Voir tout (2 autres retours)
+                  Voir tout (3 retours)
                   <IconArrowRight size={16} strokeWidth={2} />
                 </motion.button>
               </div>
@@ -478,7 +459,7 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
 
               {/* Info — flex-1, gap:4px (Figma: Info Section gap=4px) */}
               <div className="flex flex-col flex-1" style={{ gap: '4px' }}>
-                <DateBadge icon={IconCalendarEvent}>9 : 00 – 10:00 | 12 janvier 2024</DateBadge>
+                <Badge variant="default" size="large" icon={<IconCalendarEvent size={16} strokeWidth={2} color="var(--secondary-11)" />}>9 : 00 – 10:00 | 12 Juin 2026</Badge>
                 <div className="flex flex-col" style={{ gap: '2px' }}>
                   <p style={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, color: 'var(--color-text-title)', margin: 0 }}>
                     Salle d'étude 4

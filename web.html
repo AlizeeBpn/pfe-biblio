@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Viewport desktop-first (pas de PWA native) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
+    <meta name="description" content="Bibliothèques de Bordeaux — Site web officiel. Explorez 1,3 million de documents, participez à la vie culturelle du réseau." />
+    <meta name="theme-color" content="#204140" />
+
+    <!-- Open Graph -->
+    <meta property="og:title"       content="Bibliothèques de Bordeaux" />
+    <meta property="og:description" content="Explorez, découvrez, vivez la culture." />
+    <meta property="og:type"        content="website" />
+
+    <title>Bibliothèques de Bordeaux — Site web</title>
+
+    <!-- Override : supprime la contrainte 430px de l'app mobile -->
+    <style>
+      #web-root {
+        min-height: 100dvh;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+      }
+      /* Masque la scrollbar du carrousel sur Webkit */
+      .overflow-x-auto::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="web-root"></div>
+    <script type="module" src="/src/web-main.jsx"></script>
+  </body>
+</html>

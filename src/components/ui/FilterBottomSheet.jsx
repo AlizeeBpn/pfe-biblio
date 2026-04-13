@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconChevronDown, IconChevronUp, IconX } from '@tabler/icons-react';
+import { ToggleButton } from './ToggleButton';
 
 /* ── Shadows ── */
 const SHADOW_SHEET =
@@ -8,46 +9,6 @@ const SHADOW_SHEET =
 const SHADOW_CTA =
   '0px -2px 10px 0px rgba(99,181,180,0.08), 0px 2px 10px 0px rgba(99,181,180,0.08)';
 
-/* ═══════════════════════════════════════════════════════════════
-   TOGGLE BUTTON — pixel-exact Figma node 159:364 / 223:8730
-   medium inactive : h=32 / px=12 / gap=6 / radius=br-sm(6px)
-                     neutral-2 bg / neutral-6 border / 16px bold neutral-11
-   medium active   : h=32 / px=12 / gap=6 / radius=br-md(8px)
-                     primary-3 bg / primary-8 border / 16px bold primary-11 + X icon 20px
-   ═══════════════════════════════════════════════════════════════ */
-export function ToggleButton({ label, selected, onChange }) {
-  return (
-    <motion.button
-      type="button"
-      whileTap={{ scale: 0.95 }}
-      onClick={() => onChange(!selected)}
-      className="inline-flex items-center justify-center shrink-0 outline-none cursor-pointer overflow-hidden"
-      style={{
-        height:          '32px',
-        padding:         '0 12px',
-        gap:             '6px',
-        borderRadius:    'var(--br-sm)',
-        border:          selected
-          ? '1px solid var(--primary-8)'
-          : '1px solid var(--neutral-6)',
-        backgroundColor: selected ? 'var(--primary-3)' : 'var(--neutral-2)',
-      }}
-    >
-      <span style={{
-        fontSize:   '14px',
-        fontWeight: 700,
-        lineHeight: 1.5,
-        color:      selected ? 'var(--primary-11)' : 'var(--neutral-11)',
-        whiteSpace: 'nowrap',
-      }}>
-        {label}
-      </span>
-      {selected && (
-        <IconX size={20} strokeWidth={2} color="var(--primary-11)" />
-      )}
-    </motion.button>
-  );
-}
 
 /* ═══════════════════════════════════════════════════════════════
    CHECKBOX ROW — "Disponible maintenant"
@@ -184,18 +145,22 @@ function FilterAccordion({ title, options, selections, onToggle, permanentOption
             >
               {permanentOption && (
                 <ToggleButton
-                  label={permanentOption}
+                  size="medium"
                   selected={!!selections[permanentOption]}
                   onChange={val => onToggle(permanentOption, val)}
-                />
+                >
+                  {permanentOption}
+                </ToggleButton>
               )}
               {options.map(opt => (
                 <ToggleButton
                   key={opt}
-                  label={opt}
+                  size="medium"
                   selected={!!selections[opt]}
                   onChange={val => onToggle(opt, val)}
-                />
+                >
+                  {opt}
+                </ToggleButton>
               ))}
             </div>
           </motion.div>

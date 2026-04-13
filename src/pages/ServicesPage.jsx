@@ -10,6 +10,7 @@ import {
 } from '@tabler/icons-react';
 import { BottomNavigation } from '../components/ui/BottomNavigation';
 import { RoundIcon } from '../components/ui/RoundIcon';
+import Badge from '../components/ui/Badge';
 
 /* ════════════════════════════════════════════════════
    SHADOWS
@@ -28,18 +29,16 @@ const SERVICES = [
     description: 'Salles d\'étude, de réunion et espaces de travail',
     variant: 'secondary',
     badge: 'Disponible',
-    badgeBg: 'var(--success-3)',
-    badgeColor: 'var(--success-12)',
+    badgeVariant: 'success',
   },
   {
     id: 2,
     icon: IconBooks,
     title: 'Prêt entre bibliothèques',
     description: 'Demandez un ouvrage depuis une autre médiathèque',
-    variant: 'primary',
+    variant: 'secondary',
     badge: 'Sur demande',
-    badgeBg: 'var(--primary-3)',
-    badgeColor: 'var(--primary-11)',
+    badgeVariant: 'default',
   },
   {
     id: 4,
@@ -48,8 +47,7 @@ const SERVICES = [
     description: 'Conférences, lectures, rencontres avec des auteurs',
     variant: 'secondary',
     badge: 'À venir',
-    badgeBg: 'var(--secondary-3)',
-    badgeColor: 'var(--secondary-12)',
+    badgeVariant: 'default',
   },
   {
     id: 5,
@@ -58,18 +56,16 @@ const SERVICES = [
     description: 'Impression, photocopie et scan de documents',
     variant: 'neutral',
     badge: 'Sur place',
-    badgeBg: 'var(--neutral-3)',
-    badgeColor: 'var(--neutral-11)',
+    badgeVariant: 'default',
   },
   {
     id: 6,
     icon: IconUsers,
     title: 'Ateliers & Formations',
     description: 'Ateliers numériques, aide à la recherche documentaire',
-    variant: 'primary',
+    variant: 'secondary',
     badge: 'Inscription requise',
-    badgeBg: 'var(--secondary-3)',
-    badgeColor: 'var(--secondary-12)',
+    badgeVariant: 'default',
   },
 ];
 
@@ -105,12 +101,7 @@ function ServiceCard({ service, index }) {
         <p style={{ fontSize: '13px', fontWeight: 500, lineHeight: 1.4, color: 'var(--color-text-body)', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
           {service.description}
         </p>
-        {/* Badge */}
-        <div style={{ display: 'inline-flex', alignItems: 'center', height: '24px', padding: '4px', gap: '4px', backgroundColor: service.badgeBg, borderRadius: '2px', marginTop: '4px', alignSelf: 'flex-start' }}>
-          <span style={{ fontSize: '10px', fontWeight: 600, lineHeight: 1, color: service.badgeColor, whiteSpace: 'nowrap' }}>
-            {service.badge}
-          </span>
-        </div>
+        <Badge variant={service.badgeVariant} size="small">{service.badge}</Badge>
       </div>
 
       <IconChevronRight size={18} strokeWidth={2} color="var(--color-text-subtle)" style={{ flexShrink: 0 }} />

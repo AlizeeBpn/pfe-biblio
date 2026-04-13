@@ -14,6 +14,7 @@ import {
 } from '@tabler/icons-react';
 
 import { BottomNavigation }  from '../components/ui/BottomNavigation';
+import Badge from '../components/ui/Badge';
 import FilterBottomSheet     from '../components/ui/FilterBottomSheet';
 import SortBottomSheet       from '../components/ui/SortBottomSheet';
 import {
@@ -24,7 +25,6 @@ import {
   NOUVEAUTES_IDS,
 } from '../data/books';
 import BookCover from '../components/BookCover';
-import Book3D    from '../components/Book3D';
 
 /* ════════════════════════════════════════════════════
    SHADOWS
@@ -68,34 +68,21 @@ function ResultCard({ book, onClick }) {
       }}
     >
       {/* Book cover */}
-      <Book3D
-        cover={book.cover}
-        title={book.title}
-        width={100}
-        height={136}
-        isDetailView={false}
-        style={{ boxShadow: SHADOW_BOOK, borderRadius: '6px', flexShrink: 0 }}
-      />
+      <div style={{ width: '100px', height: '136px', borderRadius: '6px', boxShadow: SHADOW_BOOK, overflow: 'hidden', flexShrink: 0, backgroundColor: 'var(--neutral-3)' }}>
+        {book.cover && <img src={book.cover} alt={book.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+      </div>
 
       {/* Content */}
       <div className="flex flex-col flex-1" style={{ gap: '8px', paddingBottom: '12px', minWidth: 0 }}>
         {/* Availability + Rating */}
         <div className="flex items-center" style={{ gap: '8px' }}>
-          <div
-            className="inline-flex items-center shrink-0"
-            style={{
-              height:          '28px',
-              padding:         '0 6px',
-              gap:             '4px',
-              backgroundColor: book.available ? 'var(--success-3)' : 'var(--warning-3)',
-              borderRadius:    '4px',
-            }}
+          <Badge
+            variant={book.available ? 'success' : 'warning'}
+            size="medium"
+            icon={<IconCalendarTime size={14} strokeWidth={2} color={book.available ? 'var(--success-11)' : 'var(--warning-11)'} />}
           >
-            <IconCalendarTime size={16} strokeWidth={2} color={book.available ? 'var(--success-11)' : 'var(--warning-11)'} />
-            <span style={{ fontSize: '11px', fontWeight: 600, color: book.available ? 'var(--success-12)' : 'var(--warning-12)', whiteSpace: 'nowrap' }}>
-              {book.available ? 'Disponible' : 'Indisponible'}
-            </span>
-          </div>
+            {book.available ? 'Disponible' : 'Indisponible'}
+          </Badge>
           {book.rating != null && (
             <div className="flex-1 flex items-center justify-end" style={{ gap: '4px' }}>
               <span style={{ fontSize: '11px', fontWeight: 500, color: 'var(--color-text-subtle)', whiteSpace: 'nowrap' }}>
@@ -275,15 +262,9 @@ function BookItem({ title, author, cover, onClick }) {
       className="flex flex-col shrink-0 items-start"
       style={{ gap: '6px', width: '120px', cursor: 'pointer' }}
     >
-      <Book3D
-        cover={cover}
-        title={title}
-        author={author}
-        width={120}
-        height={186}
-        isDetailView={false}
-        style={{ borderRadius: '6px', boxShadow: SHADOW_OBJECT }}
-      />
+      <div style={{ width: '120px', height: '186px', borderRadius: '6px', boxShadow: SHADOW_OBJECT, overflow: 'hidden', flexShrink: 0, backgroundColor: 'var(--neutral-3)' }}>
+        {cover && <img src={cover} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+      </div>
       <p style={{ fontSize: '12px', fontWeight: 600, lineHeight: 1, color: 'var(--neutral-12)', margin: 0, width: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
         {title}
       </p>

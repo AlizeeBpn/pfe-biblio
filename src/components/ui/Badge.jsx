@@ -3,59 +3,67 @@
  * Badge — compact label for status / categorisation
  *
  * size    : 'small' | 'medium' | 'large'
- * variant : 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'neutral'
+ * variant : 'default' | 'success' | 'warning' | 'error' | 'neutral' | 'info'
  * icon    : ReactNode (optional — Tabler icon)
  */
 
 const sizes = {
   small: {
-    height:   'var(--sz-2xs)',   // 20px
-    padding:  '0 var(--pad-2xs)', // 0 4px
-    gap:      'var(--gap-2xs)',   // 2px
-    fontSize: '10px',
+    height:       'var(--sz-2xs)',    // 20px
+    padding:      '0 var(--pad-2xs)', // 0 4px
+    gap:          'var(--gap-2xs)',   // 2px
+    fontSize:     'var(--text-caption-sm)',
+    borderRadius: 'var(--br-2xs)',
   },
   medium: {
-    height:   'var(--sz-xs)',    // 24px
-    padding:  '0 var(--pad-xs)', // 0 6px
-    gap:      'var(--gap-xs)',   // 4px
-    fontSize: '12px',
+    height:       'var(--sz-xs)',     // 24px
+    padding:      '0 var(--pad-xs)', // 0 6px
+    gap:          'var(--gap-xs)',    // 4px
+    fontSize:     'var(--text-caption-sm)',
+    borderRadius: 'var(--br-2xs)',
   },
   large: {
-    height:   'var(--sz-sm)',    // 28px
-    padding:  '0 var(--pad-sm)', // 0 8px
-    gap:      'var(--gap-sm)',   // 6px
-    fontSize: '12px',
+    height:       'var(--sz-sm)',     // 28px
+    padding:      '0 var(--pad-sm)', // 0 8px
+    gap:          'var(--gap-sm)',    // 6px
+    fontSize:     'var(--text-caption-md)',
+    borderRadius: 'var(--br-2xs)',
   },
 };
 
 const variants = {
-  primary:   { bg: 'var(--primary-3)',   text: 'var(--primary-11)'   },
-  secondary: { bg: 'var(--secondary-3)', text: 'var(--secondary-11)' },
-  success:   { bg: 'var(--success-3)',   text: 'var(--success-11)'   },
-  warning:   { bg: 'var(--warning-3)',   text: 'var(--warning-11)'   },
-  error:     { bg: 'var(--error-3)',     text: 'var(--error-11)'     },
-  neutral:   { bg: 'var(--neutral-3)',   text: 'var(--neutral-11)'   },
+  default: { bg: 'var(--secondary-3)', text: 'var(--secondary-12)' },
+  success: { bg: 'var(--success-3)',   text: 'var(--success-12)'   },
+  warning: { bg: 'var(--warning-3)',   text: 'var(--warning-12)'   },
+  error:   { bg: 'var(--error-3)',     text: 'var(--error-12)'     },
+  neutral: { bg: 'var(--neutral-3)',   text: 'var(--neutral-12)'   },
+  info:    { bg: 'var(--info-3)',      text: 'var(--info-12)'      },
 };
 
-export const Badge = ({ children, size = 'medium', variant = 'secondary', icon }) => {
+export const Badge = ({ children, size = 'medium', variant = 'default', icon }) => {
   const s = sizes[size];
   const v = variants[variant];
 
   return (
     <div
-      className="inline-flex items-center justify-center font-sans font-medium uppercase tracking-wider"
+      className="inline-flex items-center shrink-0 font-sans font-semibold"
       style={{
+        alignSelf:       'flex-start',
         height:          s.height,
         padding:         s.padding,
         gap:             s.gap,
         backgroundColor: v.bg,
-        color:           v.text,
-        borderRadius:    'var(--br-2xs)',  // 4px
+        borderRadius:    s.borderRadius,
         fontSize:        s.fontSize,
+        lineHeight:      1,
       }}
     >
-      {icon && <span className="flex items-center">{icon}</span>}
-      {children}
+      {icon && (
+        <span className="flex items-center shrink-0">{icon}</span>
+      )}
+      <span style={{ color: v.text, whiteSpace: 'nowrap', lineHeight: 1 }}>
+        {children}
+      </span>
     </div>
   );
 };

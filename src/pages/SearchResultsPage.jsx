@@ -10,10 +10,10 @@ import {
 } from '@tabler/icons-react';
 
 import { BottomNavigation } from '../components/ui/BottomNavigation';
+import Badge from '../components/ui/Badge';
 import FilterBottomSheet from '../components/ui/FilterBottomSheet';
 import SortBottomSheet from '../components/ui/SortBottomSheet';
 import { searchBooks, filterByGenre, BOOKS as ALL_BOOKS } from '../data/books';
-import Book3D from '../components/Book3D';
 
 /* ════════════════════════════════════════════════════
    FILTER HELPERS
@@ -91,14 +91,15 @@ function applyAdvancedFilters(books, selections) {
 }
 
 /* ── Shadows ── */
-const SHADOW_CARD = '0px 2px 10px 0px var(--alpha-grey-07)';
+const SHADOW_CARD =
+  '0px 2px 10px 0px rgba(142,141,143,0.07)';
 const SHADOW_BOOK =
   '0px 28px 8px rgba(125,120,120,0), 0px 18px 7px rgba(125,120,120,0.01), 0px 10px 6px rgba(125,120,120,0.05), 0px 4px 4px rgba(125,120,120,0.09), 0px 1px 2px rgba(125,120,120,0.1)';
 
 /* ════════════════════════════════════════════════════
-   RESULT CARD
+   RESULT CARD — Figma node 356:7052
    ════════════════════════════════════════════════════ */
-function ResultCard({ title, author, genres, cover, available = true, rating = 4.5, onClick }) {
+function ResultCard({ title, author, genres, cover, available = true, returnDate, rating = 4.5, onClick }) {
   return (
     <motion.div
       whileTap={{ scale: 0.98 }}
@@ -116,39 +117,37 @@ function ResultCard({ title, author, genres, cover, available = true, rating = 4
         gap:             '12px',
         cursor:          'pointer',
         overflow:        'hidden',
+        height:          '141px',
       }}
     >
-      {/* Book cover */}
-      <Book3D
-        cover={cover}
-        title={title}
-        width={127}
-        height={148}
-        isDetailView={false}
-        style={{ boxShadow: SHADOW_BOOK, borderRadius: '6px', flexShrink: 0 }}
-      />
+      {/* Book cover — 127px, fills height, top radius only */}
+      <div
+        className="shrink-0 self-stretch relative overflow-hidden"
+        style={{
+          width:                   '127px',
+          borderTopLeftRadius:     '6px',
+          borderTopRightRadius:    '6px',
+          borderBottomLeftRadius:  0,
+          borderBottomRightRadius: 0,
+          backgroundColor:         'var(--neutral-3)',
+          boxShadow:               SHADOW_BOOK,
+        }}
+      >
+        {cover && <img src={cover} alt={title} className="absolute inset-0 w-full h-full object-cover object-top" />}
+      </div>
 
       {/* Content */}
-      <div className="flex flex-col flex-1" style={{ gap: '8px', paddingBottom: '12px', minWidth: 0 }}>
-        {/* Availability + Rating row */}
+      <div className="flex flex-col flex-1 min-w-0" style={{ gap: '8px', paddingBottom: '12px' }}>
+        {/* Availability + Rating */}
         <div className="flex items-center" style={{ gap: '8px', minWidth: 0 }}>
-          <div
-            className="inline-flex items-center shrink-0"
-            style={{
-              height:          '28px',
-              padding:         '0 6px',
-              gap:             '6px',
-              backgroundColor: available ? 'var(--success-3)' : 'var(--warning-3)',
-              borderRadius:    '2px',
-            }}
+          <Badge
+            variant={available ? 'success' : 'warning'}
+            size="large"
+            icon={<IconCalendarTime size={16} strokeWidth={2} color={available ? 'var(--success-11)' : 'var(--warning-11)'} />}
           >
-            <IconCalendarTime size={20} strokeWidth={2} color={available ? 'var(--success-11)' : 'var(--warning-11)'} />
-            <span style={{ fontSize: '12px', fontWeight: 600, lineHeight: 1, color: available ? 'var(--success-12)' : 'var(--warning-12)', whiteSpace: 'nowrap' }}>
-              {available ? 'Disponible' : 'Indisponible'}
-            </span>
-          </div>
-
-          <div className="flex-1 flex items-center justify-end" style={{ gap: '6px' }}>
+            {available ? 'Disponible' : `Retour ${returnDate || 'bientôt'}`}
+          </Badge>
+          <div className="flex-1 flex items-center justify-end shrink-0" style={{ gap: '4px' }}>
             <span style={{ fontSize: '12px', fontWeight: 500, lineHeight: 1, color: 'var(--color-text-subtle)', whiteSpace: 'nowrap' }}>
               {rating}/5
             </span>
@@ -157,16 +156,18 @@ function ResultCard({ title, author, genres, cover, available = true, rating = 4
         </div>
 
         {/* Title / Author / Genres */}
-        <div className="flex flex-col" style={{ gap: '2px', minWidth: 0 }}>
-          <p style={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, color: 'var(--color-text-title)', margin: 0, width: '100%' }}>
+        <div className="flex flex-col min-w-0" style={{ gap: '2px' }}>
+          <p style={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, color: 'var(--color-text-title)', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
             {title}
           </p>
-          <p style={{ fontSize: '16px', fontWeight: 500, lineHeight: 1.5, color: 'var(--color-text-body)', margin: 0, width: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <p style={{ fontSize: '14px', fontWeight: 500, lineHeight: 1.5, color: 'var(--color-text-body)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {author}
           </p>
-          <p style={{ fontSize: '12px', fontWeight: 400, lineHeight: 1, color: 'var(--color-text-subtle)', margin: 0, width: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {genres}
-          </p>
+          {genres && (
+            <p style={{ fontSize: '12px', fontWeight: 400, lineHeight: 1, color: 'var(--color-text-subtle)', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {genres}
+            </p>
+          )}
         </div>
       </div>
     </motion.div>
@@ -502,11 +503,12 @@ export default function SearchResultsPage({ query = '', genre = null, initialFil
           {results.map((book) => (
             <ResultCard
               key={book.id}
+              cover={book.cover}
               title={book.title}
               author={book.author}
-              genres={book.genres.join(', ')}
-              cover={book.cover}
+              genres={Array.isArray(book.genres) ? book.genres.join(', ') : book.genres}
               available={book.available}
+              returnDate={book.returnDate}
               rating={book.rating}
               onClick={() => onBookSelect?.(book)}
             />

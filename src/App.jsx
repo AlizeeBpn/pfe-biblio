@@ -13,13 +13,14 @@ const INITIAL_LISTS = [
 
 
 export default function App() {
-  const [activeTab,     setActiveTab]     = useState('Accueil');
-  const [searchQuery,   setSearchQuery]   = useState(null);
-  const [genreFilter,   setGenreFilter]   = useState(null);
-  const [activeFilters, setActiveFilters] = useState(null);
-  const [selectedBook,  setSelectedBook]  = useState(null);
-  const [scannerOpen,   setScannerOpen]   = useState(false);
-  const [lists,         setLists]         = useState(INITIAL_LISTS);
+  const [activeTab,      setActiveTab]      = useState('Accueil');
+  const [searchQuery,    setSearchQuery]    = useState(null);
+  const [genreFilter,    setGenreFilter]    = useState(null);
+  const [activeFilters,  setActiveFilters]  = useState(null);
+  const [selectedBook,   setSelectedBook]   = useState(null);
+  const [scannerOpen,    setScannerOpen]    = useState(false);
+  const [lists,          setLists]          = useState(INITIAL_LISTS);
+  const [moEspaceSheet,  setMonEspaceSheet] = useState(null);
 
   /* ── Lists API ─────────────────────────────────── */
   const createList = (name) => {
@@ -105,6 +106,8 @@ export default function App() {
         onDeleteList={deleteList}
         onRemoveBookFromList={removeBookFromList}
         onBookSelect={handleBookSelect}
+        initialSheet={moEspaceSheet}
+        key={moEspaceSheet}
       />
     );
   } else if (activeTab === 'Catalogue') {
@@ -122,7 +125,14 @@ export default function App() {
   } else if (activeTab === 'Services') {
     pageContent = <ServicesPage activeTab={activeTab} onTabChange={setActiveTab} />;
   } else {
-    pageContent = <HomePage activeTab={activeTab} onTabChange={setActiveTab} onScanOpen={handleScanOpen} />;
+    pageContent = (
+      <HomePage
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onScanOpen={handleScanOpen}
+        onShowEmprunts={() => { setMonEspaceSheet('emprunts'); setActiveTab('Mon Espace'); }}
+      />
+    );
   }
 
   return pageContent;

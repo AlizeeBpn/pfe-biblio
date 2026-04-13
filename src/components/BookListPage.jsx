@@ -1,19 +1,44 @@
 import { motion } from 'framer-motion';
-import { IconArrowLeft } from '@tabler/icons-react';
+import { IconArrowLeft, IconCalendarTime, IconShoppingBagCheck } from '@tabler/icons-react';
 import BookCard from './ui/BookCard';
 import Button   from './ui/Button';
 
 const SHADOW_HEADER = '0px -2px 10px rgba(99,181,180,0.08), 0px 2px 10px rgba(99,181,180,0.08)';
 
+/*
+ * Badge config per availability type.
+ * label() receives the book so it can use the return date.
+ */
+const BADGE = {
+  available: {
+    variant:   'success',
+    label:     (book) => book.returnDate ? `Retour le ${book.returnDate}` : 'Disponible',
+    iconColor: () => 'var(--success-11)',
+    Icon:      IconCalendarTime,
+  },
+  borrowed: {
+    variant:   'default',
+    label:     (book) => book.returnDate ?? 'En cours de prêt',
+    iconColor: () => 'var(--secondary-11)',
+    Icon:      IconCalendarTime,
+  },
+  reserved: {
+    variant:   'success',
+    label:     (book) => 'Disponible',
+    iconColor: () => 'var(--success-11)',
+    Icon:      IconShoppingBagCheck,
+  },
+};
+
 /* ════════════════════════════════════════════════════
-   BOOK LIST PAGE — full-screen (577:2955)
+   BOOK LIST PAGE
    Props:
      title            : string
      count            : number
-     books            : array — items from ALL_BOOKS
-     cardAvailability : 'available' | 'borrowed' | 'reserved'  (applied to all cards)
-     pageActionLabel  : string (optional) — button shown next to title
-     pageActionVariant: Button variant (default 'primary')
+     books            : array
+     cardAvailability : 'available' | 'borrowed' | 'reserved'
+     pageActionLabel  : string (optional)
+     pageActionVariant: Button variant
      onPageAction     : () => void
      onBack           : () => void
      onBookSelect     : (book) => void
@@ -29,6 +54,8 @@ export function BookListPage({
   onBack,
   onBookSelect,
 }) {
+  const badge = BADGE[cardAvailability] ?? BADGE.available;
+
   return (
     <div
       className="min-h-dvh font-sans flex flex-col"
@@ -64,7 +91,7 @@ export function BookListPage({
       {/* Body */}
       <div style={{ padding: '32px 20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
-        {/* Title + count + optional page action */}
+        {/* Title + count + optional action button */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{ flex: 1, minWidth: 0 }}>
             <p style={{ fontFamily: 'var(--font-brand)', fontSize: '20px', fontWeight: 700,
@@ -97,10 +124,14 @@ export function BookListPage({
               transition={{ delay: i * 0.04, type: 'spring', stiffness: 260, damping: 20 }}
             >
               <BookCard
+                cover={book.cover}
                 title={book.title}
                 author={book.author}
-                cover={book.cover}
-                availability={cardAvailability}
+                genres={Array.isArray(book.genres) ? book.genres.join(', ') : book.genres}
+                badgeVariant={badge.variant}
+                badgeLabel={badge.label(book)}
+                badgeIcon={<badge.Icon size={16} strokeWidth={2} color={badge.iconColor(book)} />}
+                rating={book.rating}
                 onClick={() => onBookSelect?.(book)}
               />
             </motion.div>

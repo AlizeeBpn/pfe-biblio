@@ -13,7 +13,8 @@ import {
   IconX,
 } from '@tabler/icons-react';
 import { BOOKS as ALL_BOOKS, AUTHORS } from '../data/books';
-import Book3D from '../components/Book3D';
+import Badge from '../components/ui/Badge';
+import { TabList } from '../components/ui/Tab';
 
 /* ════════════════════════════════════════════════════
    SHADOWS (exact Figma values)
@@ -33,65 +34,6 @@ const SHADOW_BOTTOM =
 const SHADOW_RESERV =
   '0px -2px 10px 0px rgba(99,181,180,0.08),0px 2px 10px 0px rgba(99,181,180,0.08)';
 
-/* ════════════════════════════════════════════════════
-   TAB COMPONENT (custom — not BarButton)
-   Active: primary-11 text + 40px teal underline bar
-   Inactive: neutral-10 text, no bar
-   ════════════════════════════════════════════════════ */
-function Tab({ text, isActive, onClick }) {
-  return (
-    <motion.button
-      type="button"
-      whileTap={{ scale: 0.95 }}
-      onClick={onClick}
-      className="flex flex-col items-center justify-center outline-none border-none bg-transparent cursor-pointer shrink-0"
-      style={{ gap: '8px', padding: '6px 8px' }}
-    >
-      <span style={{
-        fontSize:   '16px',
-        fontWeight: 700,
-        lineHeight: 1.5,
-        color:      isActive ? 'var(--primary-11)' : 'var(--neutral-10)',
-        whiteSpace: 'nowrap',
-      }}>
-        {text}
-      </span>
-      <div style={{
-        height:          '4px',
-        width:           '40px',
-        borderRadius:    '2px',
-        backgroundColor: isActive ? 'var(--primary-9)' : 'transparent',
-      }} />
-    </motion.button>
-  );
-}
-
-/* ════════════════════════════════════════════════════
-   GENRE BADGE — secondary colored
-   ════════════════════════════════════════════════════ */
-function GenreBadge({ label }) {
-  return (
-    <div
-      className="inline-flex items-center shrink-0"
-      style={{
-        height:          '32px',
-        padding:         '0 8px',
-        backgroundColor: 'var(--secondary-3)',
-        borderRadius:    'var(--br-2xs)',
-      }}
-    >
-      <span style={{
-        fontSize:   '12px',
-        fontWeight: 600,
-        lineHeight: 1,
-        color:      'var(--secondary-12)',
-        whiteSpace: 'nowrap',
-      }}>
-        {label}
-      </span>
-    </div>
-  );
-}
 
 /* ════════════════════════════════════════════════════
    MINI BOOK CARD — suggestions (120×186)
@@ -104,14 +46,9 @@ function MiniBookCard({ book, onSelect }) {
       className="flex flex-col shrink-0 items-start"
       style={{ gap: '6px', width: '120px', cursor: 'pointer' }}
     >
-      <Book3D
-        cover={book.cover}
-        title={book.title}
-        width={120}
-        height={186}
-        isDetailView={false}
-        style={{ borderRadius: '6px', boxShadow: SHADOW_BOOK }}
-      />
+      <div style={{ width: '120px', height: '186px', borderRadius: '6px', boxShadow: SHADOW_BOOK, overflow: 'hidden', flexShrink: 0, backgroundColor: 'var(--neutral-3)' }}>
+        {book.cover && <img src={book.cover} alt={book.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+      </div>
       {/* Title — SemiBold 12px, text-title */}
       <p style={{
         fontSize:     '12px',
@@ -155,7 +92,7 @@ const SHADOW_COLOR_BTN =
   '0px -2px 10px rgba(99,181,180,0.08),0px 2px 10px rgba(99,181,180,0.08)';
 
 /* One exemplaire section inside the card */
-function LocationSection({ library, available, fonds, cote, isLast }) {
+function LocationSection({ library, available, returnDate, fonds, cote, isLast }) {
   return (
     <>
       <div
@@ -178,27 +115,13 @@ function LocationSection({ library, available, fonds, cote, isLast }) {
             </span>
 
             {/* Tiny badge h-20px */}
-            <div
-              className="inline-flex items-center shrink-0"
-              style={{
-                height:          '20px',
-                padding:         '2px',
-                gap:             '2px',
-                backgroundColor: available ? 'var(--success-3)' : 'var(--warning-3)',
-                borderRadius:    'var(--br-2xs)',
-              }}
+            <Badge
+              variant={available ? 'success' : 'warning'}
+              size="large"
+              icon={<IconCalendarTime size={14} strokeWidth={2} color={available ? 'var(--success-11)' : 'var(--warning-11)'} />}
             >
-              <IconCalendarTime size={16} strokeWidth={2} color={available ? 'var(--success-11)' : 'var(--warning-11)'} />
-              <span style={{
-                fontSize:   '10px',
-                fontWeight: 600,
-                lineHeight: 1,
-                color:      available ? 'var(--success-12)' : 'var(--warning-12)',
-                whiteSpace: 'nowrap',
-              }}>
-                {available ? 'Disponible' : 'Indisponible'}
-              </span>
-            </div>
+              {available ? 'Disponible' : `Retour ${returnDate || 'bientôt'}`}
+            </Badge>
           </div>
 
           {/* Description Container */}
@@ -1091,7 +1014,7 @@ export default function BookDetailPage({ book, onBack, onBookSelect, lists = [],
           padding:         '16px 20px',
         }}
       >
-        <div className="flex items-center w-full" style={{ gap: '12px' }}>
+        <div className="relative flex items-center w-full" style={{ minHeight: '40px' }}>
           {/* Back button — round icon */}
           <motion.button
             type="button"
@@ -1109,31 +1032,16 @@ export default function BookDetailPage({ book, onBack, onBookSelect, lists = [],
             <IconArrowLeft size={24} strokeWidth={2} color="var(--color-text-title)" />
           </motion.button>
 
-          {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Availability badge */}
-          <div
-            className="inline-flex items-center shrink-0"
-            style={{
-              height:          '28px',
-              padding:         '0 6px',
-              gap:             '6px',
-              backgroundColor: available ? 'var(--success-3)' : 'var(--warning-3)',
-              borderRadius:    'var(--br-2xs)',
-            }}
+          {/* Availability badge — right aligned */}
+          <Badge
+            variant={available ? 'success' : 'warning'}
+            size="large"
+            icon={<IconCalendarTime size={20} strokeWidth={2} color={available ? 'var(--success-11)' : 'var(--warning-11)'} />}
           >
-            <IconCalendarTime size={20} strokeWidth={2} color={available ? 'var(--success-11)' : 'var(--warning-11)'} />
-            <span style={{
-              fontSize:   '12px',
-              fontWeight: 600,
-              lineHeight: 1,
-              color:      available ? 'var(--success-12)' : 'var(--warning-12)',
-              whiteSpace: 'nowrap',
-            }}>
-              {available ? 'Disponible' : (returnDate ? `Retour ${returnDate}` : 'Indisponible')}
-            </span>
-          </div>
+            {available ? 'Disponible' : `Retour ${returnDate || 'bientôt'}`}
+          </Badge>
         </div>
       </div>
 
@@ -1146,15 +1054,9 @@ export default function BookDetailPage({ book, onBack, onBookSelect, lists = [],
         <div className="flex flex-col items-center w-full" style={{ gap: '16px' }}>
 
           {/* Book cover — 155×237 — draggable */}
-          <Book3D
-            cover={cover}
-            title={title}
-            author={author}
-            width={155}
-            height={237}
-            isDetailView={true}
-            style={{ borderRadius: '6px', boxShadow: SHADOW_BOOK }}
-          />
+          <div style={{ width: '155px', height: '237px', borderRadius: '6px', boxShadow: SHADOW_BOOK, overflow: 'hidden', flexShrink: 0, backgroundColor: 'var(--neutral-3)' }}>
+            {cover && <img src={cover} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+          </div>
 
           {/* Title — Lora Bold 24px (h1) text-brand */}
           <p style={{
@@ -1203,21 +1105,12 @@ export default function BookDetailPage({ book, onBack, onBookSelect, lists = [],
 
           {/* Genre badges — secondary colored, wrapping, centered */}
           <div className="flex flex-wrap justify-center w-full" style={{ gap: '8px' }}>
-            {genreList.map(g => <GenreBadge key={g} label={g} />)}
+            {genreList.map(g => <Badge key={g} variant="default" size="large">{g}</Badge>)}
           </div>
         </div>
 
         {/* ── TAB BAR ── */}
-        <div className="flex items-start w-full">
-          {TABS.map((t, i) => (
-            <Tab
-              key={t}
-              text={t}
-              isActive={activeTab === i}
-              onClick={() => changeTab(i)}
-            />
-          ))}
-        </div>
+        <TabList tabs={TABS} value={activeTab} onChange={changeTab} />
       </div>
 
       {/* ══ TAB CONTENT ══════════════════════════════ */}
