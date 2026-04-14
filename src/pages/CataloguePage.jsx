@@ -17,6 +17,7 @@ import { BottomNavigation }  from '../components/ui/BottomNavigation';
 import Badge from '../components/ui/Badge';
 import FilterBottomSheet     from '../components/ui/FilterBottomSheet';
 import SortBottomSheet       from '../components/ui/SortBottomSheet';
+import BookCover             from '../components/BookCover';
 import {
   BOOKS as ALL_BOOKS,
   GENRES,
@@ -68,9 +69,11 @@ function ResultCard({ book, onClick }) {
       }}
     >
       {/* Book cover */}
-      <div style={{ width: '100px', height: '136px', borderRadius: '6px', boxShadow: SHADOW_BOOK, overflow: 'hidden', flexShrink: 0, backgroundColor: 'var(--neutral-3)' }}>
-        {book.cover && <img src={book.cover} alt={book.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
-      </div>
+      <BookCover
+        cover={book.cover}
+        title={book.title}
+        style={{ width: '100px', height: '136px', borderRadius: '6px', boxShadow: SHADOW_BOOK, flexShrink: 0 }}
+      />
 
       {/* Content */}
       <div className="flex flex-col flex-1" style={{ gap: '8px', paddingBottom: '12px', minWidth: 0 }}>
@@ -262,9 +265,11 @@ function BookItem({ title, author, cover, onClick }) {
       className="flex flex-col shrink-0 items-start"
       style={{ gap: '6px', width: '120px', cursor: 'pointer' }}
     >
-      <div style={{ width: '120px', height: '186px', borderRadius: '6px', boxShadow: SHADOW_OBJECT, overflow: 'hidden', flexShrink: 0, backgroundColor: 'var(--neutral-3)' }}>
-        {cover && <img src={cover} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
-      </div>
+      <BookCover
+        cover={cover}
+        title={title}
+        style={{ width: '120px', height: '186px', borderRadius: '6px', boxShadow: SHADOW_OBJECT, flexShrink: 0 }}
+      />
       <p style={{ fontSize: '12px', fontWeight: 600, lineHeight: 1, color: 'var(--neutral-12)', margin: 0, width: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
         {title}
       </p>
