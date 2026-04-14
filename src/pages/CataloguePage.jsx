@@ -17,7 +17,6 @@ import { BottomNavigation }  from '../components/ui/BottomNavigation';
 import Badge from '../components/ui/Badge';
 import FilterBottomSheet     from '../components/ui/FilterBottomSheet';
 import SortBottomSheet       from '../components/ui/SortBottomSheet';
-import BookCover             from '../components/BookCover';
 import {
   BOOKS as ALL_BOOKS,
   GENRES,
