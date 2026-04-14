@@ -15,6 +15,7 @@ import {
 import { BOOKS as ALL_BOOKS, AUTHORS } from '../data/books';
 import Badge from '../components/ui/Badge';
 import { TabList } from '../components/ui/Tab';
+import BookCover from '../components/BookCover';
 
 /* ════════════════════════════════════════════════════
    SHADOWS (exact Figma values)
@@ -46,9 +47,11 @@ function MiniBookCard({ book, onSelect }) {
       className="flex flex-col shrink-0 items-start"
       style={{ gap: '6px', width: '120px', cursor: 'pointer' }}
     >
-      <div style={{ width: '120px', height: '186px', borderRadius: '6px', boxShadow: SHADOW_BOOK, overflow: 'hidden', flexShrink: 0, backgroundColor: 'var(--neutral-3)' }}>
-        {book.cover && <img src={book.cover} alt={book.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
-      </div>
+      <BookCover
+        cover={book.cover}
+        title={book.title}
+        style={{ width: '120px', height: '186px', borderRadius: '6px', boxShadow: SHADOW_BOOK, flexShrink: 0 }}
+      />
       {/* Title — SemiBold 12px, text-title */}
       <p style={{
         fontSize:     '12px',
@@ -1053,10 +1056,12 @@ export default function BookDetailPage({ book, onBack, onBookSelect, lists = [],
         {/* head_fiche_livre: cover + title + key_info + badges */}
         <div className="flex flex-col items-center w-full" style={{ gap: '16px' }}>
 
-          {/* Book cover — 155×237 — draggable */}
-          <div style={{ width: '155px', height: '237px', borderRadius: '6px', boxShadow: SHADOW_BOOK, overflow: 'hidden', flexShrink: 0, backgroundColor: 'var(--neutral-3)' }}>
-            {cover && <img src={cover} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
-          </div>
+          {/* Book cover — 155×237 */}
+          <BookCover
+            cover={cover}
+            title={title}
+            style={{ width: '155px', height: '237px', borderRadius: '6px', boxShadow: SHADOW_BOOK, flexShrink: 0 }}
+          />
 
           {/* Title — Lora Bold 24px (h1) text-brand */}
           <p style={{
