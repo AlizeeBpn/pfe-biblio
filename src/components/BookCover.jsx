@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * BookCover — gradient fallback + skeleton pendant le chargement + image par-dessus.
+ * BookCover — gradient sur le conteneur + lettre + image par-dessus.
+ * Le gradient est le background du conteneur lui-même (jamais de gris).
  */
 export default function BookCover({ cover, title = '', style = {}, className = '', imgStyle = {} }) {
-  const [failed,  setFailed]  = useState(false);
-  const [loaded,  setLoaded]  = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const initial = title.trim()[0]?.toUpperCase() ?? '?';
   const showImage = cover && !failed;
@@ -17,34 +18,33 @@ export default function BookCover({ cover, title = '', style = {}, className = '
   return (
     <div
       className={className}
-      style={{ position: 'relative', overflow: 'hidden', ...style }}
+      style={{
+        position:        'relative',
+        overflow:        'hidden',
+        display:         'flex',
+        alignItems:      'center',
+        justifyContent:  'center',
+        background:      fallbackGradient,   /* toujours visible en fond */
+        ...style,
+      }}
     >
-      {/* Gradient + initial — toujours en base */}
-      <div
+      {/* Lettre initiale — toujours rendue, cachée par l'image quand elle charge */}
+      <span
         style={{
-          position:       'absolute',
-          inset:           0,
-          background:      fallbackGradient,
-          display:         'flex',
-          alignItems:      'center',
-          justifyContent:  'center',
+          fontFamily: 'var(--font-brand)',
+          fontSize:   'clamp(28px, 40%, 56px)',
+          fontWeight: 700,
+          color:      'rgba(255,255,255,0.9)',
+          lineHeight:  1,
+          userSelect: 'none',
+          position:   'relative',
+          zIndex:      1,
         }}
       >
-        <span
-          style={{
-            fontFamily: 'var(--font-brand)',
-            fontSize:   'clamp(28px, 40%, 56px)',
-            fontWeight: 700,
-            color:      'rgba(255,255,255,0.9)',
-            lineHeight:  1,
-            userSelect: 'none',
-          }}
-        >
-          {initial}
-        </span>
-      </div>
+        {initial}
+      </span>
 
-      {/* Skeleton pulsant — visible tant que l'image n'est pas chargée */}
+      {/* Skeleton pulsant pendant le chargement de l'image */}
       <AnimatePresence>
         {showImage && !loaded && (
           <motion.div
@@ -58,21 +58,21 @@ export default function BookCover({ cover, title = '', style = {}, className = '
         )}
       </AnimatePresence>
 
-      {/* Image */}
+      {/* Image — couvre tout quand chargée */}
       {showImage && (
         <img
           src={cover}
           alt={title}
           style={{
-            position:      'absolute',
-            inset:          0,
-            width:          '100%',
-            height:         '100%',
-            objectFit:      'cover',
-            objectPosition: 'top',
-            opacity:        loaded ? 1 : 0,
-            transition:     'opacity 0.35s ease',
-            zIndex:          3,
+            position:       'absolute',
+            inset:           0,
+            width:           '100%',
+            height:          '100%',
+            objectFit:       'cover',
+            objectPosition:  'top',
+            opacity:         loaded ? 1 : 0,
+            transition:      'opacity 0.35s ease',
+            zIndex:           3,
             ...imgStyle,
           }}
           onError={() => setFailed(true)}
