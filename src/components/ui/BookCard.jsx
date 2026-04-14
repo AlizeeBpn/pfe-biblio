@@ -77,14 +77,14 @@ export default function BookCard({
     >
       {/* Cover — 127px wide, fills full card height, top radius only */}
       <div
-        className="shrink-0 self-stretch relative overflow-hidden"
+        className="shrink-0 self-stretch relative overflow-hidden flex items-center justify-center"
         style={{
           width:                   '127px',
           borderTopLeftRadius:     'var(--br-sm)',
           borderTopRightRadius:    'var(--br-sm)',
           borderBottomLeftRadius:  0,
           borderBottomRightRadius: 0,
-          backgroundColor:         'var(--neutral-3)',
+          background:              cover ? 'var(--neutral-3)' : coverGradient(title),
           boxShadow:               SHADOW_COVER,
         }}
       >
@@ -95,19 +95,18 @@ export default function BookCard({
             className="absolute inset-0 w-full h-full object-cover object-top"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center"
-            style={{ background: coverGradient(title) }}>
-            <span style={{
-              fontSize:   '56px',
-              fontWeight: 800,
-              color:      'rgba(255,255,255,0.9)',
-              lineHeight: 1,
-              userSelect: 'none',
-              textShadow: '0 2px 8px rgba(0,0,0,0.18)',
-            }}>
-              {(title[0] || '?').toUpperCase()}
-            </span>
-          </div>
+          <span style={{
+            fontSize:   '56px',
+            fontWeight: 800,
+            color:      'rgba(255,255,255,0.9)',
+            lineHeight: 1,
+            userSelect: 'none',
+            textShadow: '0 2px 8px rgba(0,0,0,0.18)',
+            position:   'relative',
+            zIndex:     1,
+          }}>
+            {(title[0] || '?').toUpperCase()}
+          </span>
         )}
       </div>
 
