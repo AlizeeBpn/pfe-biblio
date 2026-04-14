@@ -1,22 +1,7 @@
 import { motion } from 'framer-motion'
 import { IconStarFilled } from '@tabler/icons-react'
 import Badge from './Badge'
-
-/* Gradient palette based on first letter — deterministic, visually distinct */
-const GRADIENTS = [
-  ['#4f8ef7', '#7c3aed'], // A B C D
-  ['#f97316', '#ef4444'], // E F G H
-  ['#10b981', '#0891b2'], // I J K L
-  ['#8b5cf6', '#ec4899'], // M N O P
-  ['#f59e0b', '#d97706'], // Q R S T
-  ['#06b6d4', '#3b82f6'], // U V W X Y Z
-]
-
-function coverGradient(title = '') {
-  const code = (title[0] || 'A').toUpperCase().charCodeAt(0) - 65
-  const [from, to] = GRADIENTS[Math.floor(Math.max(0, code) / 5) % GRADIENTS.length]
-  return `linear-gradient(160deg, ${from}, ${to})`
-}
+import BookCover from '../BookCover'
 
 /**
  * BookCard — Figma node 356:7052
@@ -75,40 +60,21 @@ export default function BookCard({
         height:          '141px',
       }}
     >
-      {/* Cover — 127px wide, fills full card height, top radius only */}
-      <div
-        className="shrink-0 self-stretch relative overflow-hidden flex items-center justify-center"
+      {/* Cover */}
+      <BookCover
+        cover={cover}
+        title={title}
         style={{
           width:                   '127px',
+          alignSelf:               'stretch',
           borderTopLeftRadius:     'var(--br-sm)',
           borderTopRightRadius:    'var(--br-sm)',
           borderBottomLeftRadius:  0,
           borderBottomRightRadius: 0,
-          background:              cover ? 'var(--neutral-3)' : coverGradient(title),
           boxShadow:               SHADOW_COVER,
+          flexShrink:              0,
         }}
-      >
-        {cover ? (
-          <img
-            src={cover}
-            alt={title}
-            className="absolute inset-0 w-full h-full object-cover object-top"
-          />
-        ) : (
-          <span style={{
-            fontSize:   '56px',
-            fontWeight: 800,
-            color:      'rgba(255,255,255,0.9)',
-            lineHeight: 1,
-            userSelect: 'none',
-            textShadow: '0 2px 8px rgba(0,0,0,0.18)',
-            position:   'relative',
-            zIndex:     1,
-          }}>
-            {(title[0] || '?').toUpperCase()}
-          </span>
-        )}
-      </div>
+      />
 
       {/* Content */}
       <div

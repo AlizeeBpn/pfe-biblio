@@ -13,6 +13,7 @@ import { BottomNavigation } from '../components/ui/BottomNavigation';
 import Badge from '../components/ui/Badge';
 import FilterBottomSheet from '../components/ui/FilterBottomSheet';
 import SortBottomSheet from '../components/ui/SortBottomSheet';
+import BookCover from '../components/BookCover';
 import { searchBooks, filterByGenre, BOOKS as ALL_BOOKS } from '../data/books';
 
 /* ════════════════════════════════════════════════════
@@ -120,21 +121,21 @@ function ResultCard({ title, author, genres, cover, available = true, returnDate
         height:          '141px',
       }}
     >
-      {/* Book cover — 127px, fills height, top radius only */}
-      <div
-        className="shrink-0 self-stretch relative overflow-hidden"
+      {/* Book cover */}
+      <BookCover
+        cover={cover}
+        title={title}
         style={{
           width:                   '127px',
+          alignSelf:               'stretch',
           borderTopLeftRadius:     '6px',
           borderTopRightRadius:    '6px',
           borderBottomLeftRadius:  0,
           borderBottomRightRadius: 0,
-          backgroundColor:         'var(--neutral-3)',
           boxShadow:               SHADOW_BOOK,
+          flexShrink:              0,
         }}
-      >
-        {cover && <img src={cover} alt={title} className="absolute inset-0 w-full h-full object-cover object-top" />}
-      </div>
+      />
 
       {/* Content */}
       <div className="flex flex-col flex-1 min-w-0" style={{ gap: '8px', paddingBottom: '12px' }}>
