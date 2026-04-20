@@ -17,9 +17,7 @@ import { BottomNavigation } from '../components/ui/BottomNavigation';
 import { BookListPage }     from '../components/BookListPage';
 import { BOOKS as ALL_BOOKS } from '../data/books';
 import Badge from '../components/ui/Badge';
-
-/* ── Book cover asset (Figma MCP — 7-day TTL) ── */
-const imgBookCover = 'https://www.figma.com/api/mcp/asset/435c7b2d-e051-4870-802b-ea1a5cf05cbf';
+import BookCover from '../components/BookCover';
 
 /* ── Sample data ── */
 const RESERVED_BOOKS = ALL_BOOKS.slice(0, 4);
@@ -86,26 +84,30 @@ function ReservationCard({ books = [], count = 5, onClick }) {
       onClick={onClick}
       style={{ ...CARD, display: 'flex', alignItems: 'stretch', overflow: 'hidden', cursor: 'pointer', minHeight: '120px', gap: 'var(--gap-2md)' }}
     >
-      {/* Cover area — two gently tilted books, no inner overflow:hidden so rotation isn't clipped */}
+      {/* Cover area — two gently tilted books */}
       <div style={{ width: '120px', flexShrink: 0, position: 'relative', alignSelf: 'stretch' }}>
         {/* Back book */}
-        <div style={{
-          position: 'absolute', left: '4px', bottom: '0px',
-          transform: 'rotate(-10deg)', transformOrigin: 'bottom center',
-          borderRadius: '6px', width: 64, height: 100,
-          backgroundColor: '#af9494', boxShadow: SHADOW_OBJECT_BOOK, overflow: 'hidden',
-        }}>
-          {cover1 && <img src={cover1} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />}
-        </div>
+        <BookCover
+          cover={cover1}
+          title={books[0]?.title ?? ''}
+          style={{
+            position: 'absolute', left: '4px', bottom: '0px',
+            transform: 'rotate(-10deg)', transformOrigin: 'bottom center',
+            borderRadius: '6px', width: 64, height: 100,
+            boxShadow: SHADOW_OBJECT_BOOK,
+          }}
+        />
         {/* Front book */}
-        <div style={{
-          position: 'absolute', left: '44px', bottom: '0px',
-          transform: 'rotate(10deg)', transformOrigin: 'bottom center',
-          borderRadius: '6px', width: 64, height: 100,
-          backgroundColor: '#c0a898', boxShadow: SHADOW_OBJECT_BOOK, overflow: 'hidden',
-        }}>
-          {cover2 && <img src={cover2} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />}
-        </div>
+        <BookCover
+          cover={cover2}
+          title={books[1]?.title ?? ''}
+          style={{
+            position: 'absolute', left: '44px', bottom: '0px',
+            transform: 'rotate(10deg)', transformOrigin: 'bottom center',
+            borderRadius: '6px', width: 64, height: 100,
+            boxShadow: SHADOW_OBJECT_BOOK,
+          }}
+        />
       </div>
 
       {/* Info */}
@@ -284,18 +286,17 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
               <div className="flex items-center" style={{ gap: '16px', height: '195px' }}>
 
                 {/* Book cover 127×195 radius:6px object-depth shadow */}
-                <div
-                  className="shrink-0 overflow-hidden relative"
+                <BookCover
+                  cover="/covers/vingt-mille-lieues.jpg"
+                  title="Vingt Mille Lieues Sous Les Mers"
                   style={{
-                    width:           '127px',
-                    height:          '195px',
-                    borderRadius:    '6px',         // br-sm fallback
-                    boxShadow:       SHADOW_OBJECT,
-                    backgroundColor: '#af9494',
+                    width:        '127px',
+                    height:       '195px',
+                    borderRadius: '6px',
+                    boxShadow:    SHADOW_OBJECT,
+                    flexShrink:   0,
                   }}
-                >
-                  <img src={imgBookCover} alt="" className="absolute inset-0 w-full h-full object-cover" />
-                </div>
+                />
 
                 {/* Content */}
                 <div className="flex flex-col flex-1 h-full" style={{ gap: '8px' }}>
@@ -373,22 +374,21 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
                   className="flex flex-row items-center flex-1 self-stretch"
                   style={{ gap: '12px' }}
                 >
-                  {/* book-img — 127px wide, fills height, padding 10px, top radius 6px only */}
-                  <div
-                    className="shrink-0 self-stretch overflow-hidden relative"
+                  {/* book-img — 127px wide, fills height, top radius 6px only */}
+                  <BookCover
+                    cover={NARUTO?.cover}
+                    title={NARUTO?.title ?? ''}
                     style={{
                       width:                   '127px',
-                      padding:                 '10px',
+                      alignSelf:               'stretch',
                       borderTopLeftRadius:     '6px',
                       borderTopRightRadius:    '6px',
                       borderBottomLeftRadius:  0,
                       borderBottomRightRadius: 0,
-                      backgroundColor:         '#af9494',
+                      flexShrink:              0,
                       boxShadow:               '0px 18px 7px rgba(125,120,120,0.01), 0px 10px 6px rgba(125,120,120,0.05), 0px 4px 4px rgba(125,120,120,0.09), 0px 1px 2px rgba(125,120,120,0.1)',
                     }}
-                  >
-                    <img src={NARUTO?.cover} alt="" className="absolute inset-0 w-full h-full object-cover object-top" />
-                  </div>
+                  />
 
                   {/* content — padding-bottom 12px, gap 8px */}
                   <div

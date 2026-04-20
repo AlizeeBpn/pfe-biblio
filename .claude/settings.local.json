@@ -20,7 +20,17 @@
       "mcp__claude_ai_Figma__whoami",
       "Bash(npx tsc:*)",
       "Bash(npm run:*)",
-      "mcp__claude_ai_Figma__get_variable_defs"
+      "mcp__claude_ai_Figma__get_variable_defs",
+      "WebFetch(domain:covers.openlibrary.org)",
+      "Bash(curl -sL \"https://www.figma.com/api/mcp/asset/43aa7f4f-312f-489a-baca-bd883c10f67f\" -o fahrenheit-451.jpg)",
+      "Bash(curl -sL \"https://www.figma.com/api/mcp/asset/a48f7e14-a0aa-47eb-8aee-2e33b754927b\" -o dune.jpg)",
+      "Bash(curl -sL \"https://www.figma.com/api/mcp/asset/8957be0f-41df-4c71-85ca-58a21989fa37\" -o naruto.jpg)",
+      "Bash(curl -sL \"https://www.figma.com/api/mcp/asset/4d51ca6a-3008-4cea-aa0c-37bf859e254b\" -o bridgerton.jpg)",
+      "Bash(curl -sL \"https://www.figma.com/api/mcp/asset/430d0cf5-39b4-4e2a-913a-009626342803\" -o seigneur-des-anneaux.jpg)",
+      "Bash(curl -sL \"https://covers.openlibrary.org/b/isbn/9782070360246-L.jpg\" -o /tmp/vingt-mille.jpg)",
+      "Read(//tmp/**)",
+      "Bash(curl -sL \"https://www.figma.com/api/mcp/asset/1760d975-d6a8-4f86-916d-6ea777516565\" -o c:/Users/ragea/pfe-biblio/public/covers/vingt-mille-lieues.jpg)",
+      "Bash(netstat -ano)"
     ]
   }
 }
