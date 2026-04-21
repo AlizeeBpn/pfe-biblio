@@ -71,8 +71,6 @@ const CARD = {
 /* ════════════════════════════════════════════════════
    RESERVATION CARD — Figma 585:5563
    ════════════════════════════════════════════════════ */
-const SHADOW_OBJECT_BOOK =
-  '0px 16px 9px 0px rgba(142,141,143,0.05), 0px 7px 7px 0px rgba(142,141,143,0.09), 0px 2px 4px 0px rgba(142,141,143,0.10), 0px -11px 4px 0px rgba(142,141,143,0.01), 0px -6px 4px 0px rgba(142,141,143,0.05), 0px -3px 3px 0px rgba(142,141,143,0.09), 0px -1px 2px 0px rgba(142,141,143,0.10)';
 
 function ReservationCard({ books = [], count = 5, onClick }) {
   const cover1 = books[0]?.cover;
@@ -94,7 +92,7 @@ function ReservationCard({ books = [], count = 5, onClick }) {
             position: 'absolute', left: '4px', bottom: '0px',
             transform: 'rotate(-10deg)', transformOrigin: 'bottom center',
             borderRadius: '6px', width: 64, height: 100,
-            boxShadow: SHADOW_OBJECT_BOOK,
+            boxShadow: SHADOW_OBJECT,
           }}
         />
         {/* Front book */}
@@ -105,7 +103,7 @@ function ReservationCard({ books = [], count = 5, onClick }) {
             position: 'absolute', left: '44px', bottom: '0px',
             transform: 'rotate(10deg)', transformOrigin: 'bottom center',
             borderRadius: '6px', width: 64, height: 100,
-            boxShadow: SHADOW_OBJECT_BOOK,
+            boxShadow: SHADOW_OBJECT,
           }}
         />
       </div>
@@ -386,7 +384,7 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
                       borderBottomLeftRadius:  0,
                       borderBottomRightRadius: 0,
                       flexShrink:              0,
-                      boxShadow:               '0px 18px 7px rgba(125,120,120,0.01), 0px 10px 6px rgba(125,120,120,0.05), 0px 4px 4px rgba(125,120,120,0.09), 0px 1px 2px rgba(125,120,120,0.1)',
+                      boxShadow:               SHADOW_DEPTH,
                     }}
                   />
 
