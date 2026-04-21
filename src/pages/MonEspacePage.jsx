@@ -98,7 +98,9 @@ function InfoCard({ category, count, typeLabel, badge, badgeIcon: BadgeIcon, bad
    ════════════════════════════════════════════════════ */
 function RowItem({ icon: Icon, label, isFirst, isLast }) {
   return (
-    <div
+    <motion.div
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
       className="flex items-center cursor-pointer"
       style={{
         gap: '12px', padding: '0 12px', height: '64px',
@@ -107,7 +109,6 @@ function RowItem({ icon: Icon, label, isFirst, isLast }) {
         borderTop: '1px solid var(--neutral-6)', borderBottom: isLast ? '1px solid var(--neutral-6)' : 'none',
         borderTopLeftRadius: isFirst ? '20px' : 0, borderTopRightRadius: isFirst ? '20px' : 0,
         borderBottomLeftRadius: isLast ? '20px' : 0, borderBottomRightRadius: isLast ? '20px' : 0,
-        transition: 'background-color 0.15s',
       }}
     >
       <div style={{ width: '40px', height: '40px', borderRadius: 'var(--br-round)', backgroundColor: 'var(--primary-3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -115,7 +116,7 @@ function RowItem({ icon: Icon, label, isFirst, isLast }) {
       </div>
       <span style={{ flex: '1 0 0', fontSize: '16px', fontWeight: 700, color: 'var(--color-text-title)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{label}</span>
       <IconChevronRight size={20} strokeWidth={2} color="var(--color-text-subtle)" />
-    </div>
+    </motion.div>
   );
 }
 
@@ -129,7 +130,7 @@ function QRModal({ onClose }) {
       onClick={onClose}
     >
       <motion.div initial={{ scale: 0.92, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.92, opacity: 0 }}
-        transition={{ type: 'spring', stiffness: 320, damping: 26 }} onClick={(e) => e.stopPropagation()}
+        transition={{ type: 'spring', stiffness: 400, damping: 38 }} onClick={(e) => e.stopPropagation()}
         style={{ backgroundColor: 'var(--neutral-1)', borderRadius: '24px', padding: '32px 24px', width: '100%', maxWidth: '340px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}
       >
         <div className="flex items-center justify-between w-full">
@@ -332,7 +333,7 @@ function ListNameModal({ title, confirmLabel = 'Créer la liste', initialValue =
     >
       <motion.div
         initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 40 }}
         onClick={(e) => e.stopPropagation()}
         style={{ width: '100%', backgroundColor: 'white', borderRadius: '32px 32px 0 0', padding: '16px 0 32px', boxShadow: '0px -4px 24px rgba(0,0,0,0.12)' }}
       >

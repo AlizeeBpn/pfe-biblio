@@ -30,7 +30,10 @@
       "Bash(curl -sL \"https://covers.openlibrary.org/b/isbn/9782070360246-L.jpg\" -o /tmp/vingt-mille.jpg)",
       "Read(//tmp/**)",
       "Bash(curl -sL \"https://www.figma.com/api/mcp/asset/1760d975-d6a8-4f86-916d-6ea777516565\" -o c:/Users/ragea/pfe-biblio/public/covers/vingt-mille-lieues.jpg)",
-      "Bash(netstat -ano)"
+      "Bash(netstat -ano)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git add *)"
     ]
   }
 }

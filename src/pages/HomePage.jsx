@@ -152,7 +152,7 @@ export default function HomePage({ activeTab: activeTabProp, onTabChange, onScan
     <div
       className="min-h-dvh font-sans flex flex-col"
       style={{
-        background:    'linear-gradient(180deg, var(--secondary-2) 0%, var(--neutral-2) 49.04%), var(--neutral-2)',
+        background:    'var(--neutral-background-2)',
         paddingBottom: 'var(--layout-12)',   // 160px — floating nav clearance
       }}
     >
